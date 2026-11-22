@@ -38,30 +38,24 @@ public class MeterRenderer implements BlockEntityRenderer<MeterBlockEntity> {
             return;
         }
         Direction facing = state.getValue(MeterBlock.FACING);
-        int x = 0;
-        int y = 0;
-        switch (facing) {
-            case DOWN -> x = 180;
-            case NORTH -> x = 90;
-            case EAST -> { x = 90; y = 90; }
-            case SOUTH -> { x = 90; y = 180; }
-            case WEST -> { x = 90; y = 270; }
-            default -> { }
-        }
+        Direction up = MeterBlock.up(state);
+        // Text frame: right x up = normal (the facing), so right = up x facing.
+        net.minecraft.core.Vec3i right = up.getNormal().cross(facing.getNormal());
+        net.minecraft.core.Vec3i n = facing.getNormal();
+        net.minecraft.core.Vec3i u = up.getNormal();
         Font font = Minecraft.getInstance().font;
         String text = format(meter.getValue(), block.getKind().unit);
         float width = font.width(text);
         float scale = Math.min(0.022F, 0.66F / Math.max(1.0F, width));
+        double h = -0.5D + (MeterBlock.DEPTH + 0.05D) / 16.0D;
 
         pose.pushPose();
-        pose.translate(0.5D, 0.5D, 0.5D);
-        // Same rotation the blockstate applies to the model (y first, then x).
-        pose.mulPose(Axis.YP.rotationDegrees(-y));
-        pose.mulPose(Axis.XP.rotationDegrees(-x));
-        pose.translate(-0.5D, -0.5D, -0.5D);
-        // Onto the top face of the floor-authored panel, text facing up.
-        pose.translate(0.5D, (MeterBlock.DEPTH + 0.05D) / 16.0D, 0.5D);
-        pose.mulPose(Axis.XP.rotationDegrees(-90.0F));
+        pose.translate(0.5D + n.getX() * h, 0.5D + n.getY() * h, 0.5D + n.getZ() * h);
+        pose.mulPoseMatrix(new org.joml.Matrix4f(
+                right.getX(), right.getY(), right.getZ(), 0.0F,
+                u.getX(), u.getY(), u.getZ(), 0.0F,
+                n.getX(), n.getY(), n.getZ(), 0.0F,
+                0.0F, 0.0F, 0.0F, 1.0F));
         pose.scale(scale, -scale, scale);
         font.drawInBatch(text, -width / 2.0F, -font.lineHeight / 2.0F + 1.0F, 0x55FF55, false,
                 pose.last().pose(), buffer, Font.DisplayMode.NORMAL, 0, 0xF000F0);

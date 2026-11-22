@@ -240,6 +240,19 @@ public class CableBlock extends Block implements EntityBlock {
         return null;
     }
 
+    private static float wallDeviceReach(Block block) {
+        if (block instanceof net.fraeric.elnr.common.electric.SpeakerBlock) {
+            return 5.0F / 16.0F;
+        }
+        if (block instanceof net.fraeric.elnr.common.electric.MeterBlock) {
+            return 2.0F / 16.0F;
+        }
+        if (block instanceof net.fraeric.elnr.common.wireless.C4Block) {
+            return 4.0F / 16.0F;
+        }
+        return -1.0F;
+    }
+
     /**
      * @return how far a cable of {@code cable}'s tier lying on {@code face} runs into the
      * device at {@code devicePos}, or a negative number when it does not connect visually
@@ -257,6 +270,12 @@ public class CableBlock extends Block implements EntityBlock {
                 return -1.0F;
             }
             return stand.getReach();
+        }
+        float wallReach = wallDeviceReach(block);
+        if (wallReach > 0.0F) {
+            // Speakers, meters and C4 take a strip that lies on their own surface.
+            return device.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING)
+                    .getOpposite() == face ? wallReach : -1.0F;
         }
         if (block instanceof SocketBlock) {
             // Only a socket lying on the same surface as the cable takes the strip.

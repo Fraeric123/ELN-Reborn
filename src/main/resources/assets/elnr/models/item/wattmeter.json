@@ -1,1 +1,6 @@
-{"parent": "elnr:block/wattmeter"}
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "elnr:item/wattmeter"
+  }
+}
