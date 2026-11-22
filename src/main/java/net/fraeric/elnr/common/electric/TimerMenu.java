@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * Slotless menu of the timer. Button ids: {@code 1} toggles the mode, an id of
  * {@code 1000 + field * 1000000 + ticks} sets field 0 (delay), 1 (on) or 2 (off).
  */
-public class TimerMenu extends AbstractContainerMenu {
+public class TimerMenu extends AbstractContainerMenu implements net.fraeric.elnr.network.NumericMenu {
 
     public static final int BTN_MODE = 1;
     public static final int FIELD_BASE = 1000;
@@ -71,6 +71,16 @@ public class TimerMenu extends AbstractContainerMenu {
 
     public static int fieldId(int field, int ticks) {
         return FIELD_BASE + field * FIELD_STEP + ticks;
+    }
+
+    @Override
+    public void applyValues(Player player, int[] values) {
+        if (entity == null || player.level().isClientSide) {
+            return;
+        }
+        for (int i = 0; i < 3 && i < values.length; i++) {
+            entity.setTicks(i, values[i]);
+        }
     }
 
     @Override

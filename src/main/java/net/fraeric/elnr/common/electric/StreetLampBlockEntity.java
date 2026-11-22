@@ -38,6 +38,26 @@ public class StreetLampBlockEntity extends BlockEntity implements BulbHolder {
         super(ModBlockEntities.STREET_LAMP.get(), pos, state);
     }
 
+    /** Keeps the client copy (bulb and cable) in step: the cable renderer needs it to draw the connection. */
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
+        }
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> getUpdatePacket() {
+        return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this);
+    }
+
     public Container getInventory() {
         return inventory;
     }

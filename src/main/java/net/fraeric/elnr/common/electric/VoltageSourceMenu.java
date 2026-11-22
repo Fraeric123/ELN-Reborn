@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
  * slot synchronises the configured voltage to the client (in centivolts) and the
  * "button" channel is used to send a new voltage back to the server.
  */
-public class VoltageSourceMenu extends AbstractContainerMenu {
+public class VoltageSourceMenu extends AbstractContainerMenu implements net.fraeric.elnr.network.NumericMenu {
 
     /** 1/100 V, so that the GUI can show two decimals. */
     public static final int MILLIVOLT_SCALE = 100;
@@ -54,6 +54,14 @@ public class VoltageSourceMenu extends AbstractContainerMenu {
     /** Configured voltage as it is currently shown to the player. */
     public double getVoltage() {
         return data.get(0) / (double) MILLIVOLT_SCALE;
+    }
+
+    /** The new voltage in centivolts (container button ids are only a byte wide, so it comes by packet). */
+    @Override
+    public void applyValues(Player player, int[] values) {
+        if (values.length > 0) {
+            clickMenuButton(player, values[0]);
+        }
     }
 
     @Override

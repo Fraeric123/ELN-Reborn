@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 /** Primitive screen: one number field for the output voltage and a Set button. */
 public class VoltageSourceScreen extends AbstractContainerScreen<VoltageSourceMenu> {
 
-    private EditBox input;
+    private NumberField input;
 
     public VoltageSourceScreen(VoltageSourceMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -24,37 +24,31 @@ public class VoltageSourceScreen extends AbstractContainerScreen<VoltageSourceMe
     @Override
     protected void init() {
         super.init();
-        input = new EditBox(font, leftPos + 12, topPos + 28, 100, 18, Component.translatable("block.elnr.voltage_source"));
-        input.setMaxLength(8);
-        input.setFilter(text -> text.matches("\\d{0,4}([.,]\\d{0,2})?"));
-        input.setValue(VoltageSourceBlock.formatVoltage(menu.getVoltage()));
+        input = new NumberField(font, leftPos + 12, topPos + 28, 100, 18, Component.translatable("block.elnr.voltage_source"), true);
         addRenderableWidget(input);
-        setInitialFocus(input);
         addRenderableWidget(Button.builder(Component.translatable("gui.elnr.set"), b -> apply())
                 .bounds(leftPos + 118, topPos + 27, 46, 20).build());
     }
 
     private void apply() {
-        try {
-            double value = Double.parseDouble(input.getValue().replace(',', '.'));
+        double value = input.number();
+        if (!Double.isNaN(value)) {
             value = VoltageSourceMenu.clamp(value);
-            int id = VoltageSourceMenu.toData(value);
-            if (minecraft != null && minecraft.gameMode != null) {
-                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
-            }
-            input.setValue(VoltageSourceBlock.formatVoltage(value));
-        } catch (NumberFormatException ignored) {
+            net.fraeric.elnr.network.ModNetwork.sendValues(VoltageSourceMenu.toData(value));
+            input.markApplied();
         }
     }
 
     @Override
+    protected void containerTick() {
+        super.containerTick();
+        input.sync((int) Math.round(menu.getVoltage() * 100.0D), VoltageSourceBlock.formatVoltage(menu.getVoltage()));
+    }
+
+    @Override
     public boolean keyPressed(int key, int scan, int modifiers) {
-        if (input.isFocused() && (key == 257 || key == 335)) {
-            apply();
+        if (NumberField.handleKey(new NumberField[]{input}, key, scan, modifiers, this::apply)) {
             return true;
-        }
-        if (input.isFocused() && key != 256) {
-            return input.keyPressed(key, scan, modifiers) || true;
         }
         return super.keyPressed(key, scan, modifiers);
     }

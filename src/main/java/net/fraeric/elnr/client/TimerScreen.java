@@ -4,7 +4,7 @@ import net.fraeric.elnr.common.electric.TimerBlockEntity;
 import net.fraeric.elnr.common.electric.TimerMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
+import net.fraeric.elnr.network.ModNetwork;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,14 +14,14 @@ import java.util.Locale;
 /** Timer configuration: mode button and the times in seconds. */
 public class TimerScreen extends AbstractContainerScreen<TimerMenu> {
 
-    private final EditBox[] fields = new EditBox[3];
+    private final NumberField[] fields = new NumberField[3];
     private Button modeButton;
     private int lastMode = -1;
 
     public TimerScreen(TimerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         this.imageWidth = 200;
-        this.imageHeight = 128;
+        this.imageHeight = 140;
     }
 
     private void press(int id) {
@@ -43,15 +43,13 @@ public class TimerScreen extends AbstractContainerScreen<TimerMenu> {
                 .bounds(leftPos + 10, topPos + 22, imageWidth - 20, 20).build());
         String[] labels = {"gui.elnr.timer.delay", "gui.elnr.timer.on", "gui.elnr.timer.off"};
         for (int i = 0; i < 3; i++) {
-            EditBox box = new EditBox(font, leftPos + 120, topPos + 48 + i * 22, 70, 18, Component.translatable(labels[i]));
-            box.setMaxLength(7);
-            box.setFilter(text -> text.matches("\\d{0,4}([.,]\\d{0,2})?"));
-            box.setValue(format(menu.getTicks(i)));
+            NumberField box = new NumberField(font, leftPos + 100, topPos + 52 + (i == 2 ? 1 : 0) * 22, 70, 18,
+                    Component.translatable(labels[i]), true);
             fields[i] = box;
             addRenderableWidget(box);
         }
         addRenderableWidget(Button.builder(Component.translatable("gui.elnr.set"), b -> apply())
-                .bounds(leftPos + 10, topPos + 100, imageWidth - 20, 20).build());
+                .bounds(leftPos + 10, topPos + 112, imageWidth - 20, 20).build());
         updateVisibility();
     }
 
@@ -65,15 +63,18 @@ public class TimerScreen extends AbstractContainerScreen<TimerMenu> {
     }
 
     private void apply() {
+        boolean cycle = menu.getMode() == TimerBlockEntity.MODE_CYCLE;
+        int[] ticks = new int[3];
         for (int i = 0; i < 3; i++) {
-            try {
-                double seconds = Double.parseDouble(fields[i].getValue().replace(',', '.'));
-                int ticks = (int) Math.max(1, Math.min(TimerBlockEntity.MAX_TICKS, Math.round(seconds * 20.0D)));
-                press(TimerMenu.fieldId(i, ticks));
-                fields[i].setValue(format(ticks));
-            } catch (NumberFormatException ignored) {
+            ticks[i] = menu.getTicks(i);
+            boolean shown = i == 0 ? !cycle : cycle;
+            double seconds = fields[i].number();
+            if (shown && !Double.isNaN(seconds)) {
+                ticks[i] = (int) Math.max(1, Math.min(TimerBlockEntity.MAX_TICKS, Math.round(seconds * 20.0D)));
+                fields[i].markApplied();
             }
         }
+        ModNetwork.sendValues(ticks);
     }
 
     @Override
@@ -82,21 +83,15 @@ public class TimerScreen extends AbstractContainerScreen<TimerMenu> {
         if (menu.getMode() != lastMode) {
             updateVisibility();
         }
+        for (int i = 0; i < 3; i++) {
+            fields[i].sync(menu.getTicks(i), format(menu.getTicks(i)));
+        }
     }
 
     @Override
     public boolean keyPressed(int key, int scan, int modifiers) {
-        for (EditBox box : fields) {
-            if (box.isFocused() && box.visible) {
-                if (key == 257 || key == 335) {
-                    apply();
-                    return true;
-                }
-                if (key != 256) {
-                    box.keyPressed(key, scan, modifiers);
-                    return true;
-                }
-            }
+        if (NumberField.handleKey(fields, key, scan, modifiers, this::apply)) {
+            return true;
         }
         return super.keyPressed(key, scan, modifiers);
     }
@@ -112,10 +107,14 @@ public class TimerScreen extends AbstractContainerScreen<TimerMenu> {
         g.drawString(font, title, 10, 8, 0x404040, false);
         boolean cycle = menu.getMode() == TimerBlockEntity.MODE_CYCLE;
         if (cycle) {
-            g.drawString(font, Component.translatable("gui.elnr.timer.on"), 10, 54 + 22, 0x404040, false);
-            g.drawString(font, Component.translatable("gui.elnr.timer.off"), 10, 54 + 44, 0x404040, false);
+            g.drawString(font, Component.translatable("gui.elnr.timer.on"), 10, 52 + 5, 0x404040, false);
+            g.drawString(font, Component.translatable("gui.elnr.timer.off"), 10, 74 + 5, 0x404040, false);
         } else {
-            g.drawString(font, Component.translatable("gui.elnr.timer.delay"), 10, 54, 0x404040, false);
+            g.drawString(font, Component.translatable("gui.elnr.timer.delay"), 10, 52 + 5, 0x404040, false);
+        }
+        int rows = cycle ? 2 : 1;
+        for (int i = 0; i < rows; i++) {
+            g.drawString(font, "s", 176, 52 + i * 22 + 5, 0x404040, false);
         }
     }
 

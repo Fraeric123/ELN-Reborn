@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 /** Frequency screen of the remote control (opened with sneak + right click). */
-public class RemoteMenu extends MachineMenu {
+public class RemoteMenu extends MachineMenu implements net.fraeric.elnr.network.NumericMenu {
 
     private final Player player;
     private final InteractionHand hand;
@@ -38,6 +38,20 @@ public class RemoteMenu extends MachineMenu {
     }
 
     @Override
+    public void applyValues(Player p, int[] values) {
+        if (p.level().isClientSide || values.length < 1) {
+            return;
+        }
+        ItemStack stack = p.getItemInHand(hand);
+        if (!(stack.getItem() instanceof RemoteItem)) {
+            return;
+        }
+        int next = Math.max(0, Math.min(FrequencyHolder.MAX_FREQUENCY, values[0]));
+        RemoteItem.setFrequency(stack, next);
+        data.set(0, next);
+    }
+
+    @Override
     public List<Component> infoLines() {
         return List.of(Component.translatable("gui.elnr.wireless.frequency", get(0)),
                 Component.translatable("gui.elnr.wireless.range", (int) WirelessManager.RANGE));
@@ -45,7 +59,7 @@ public class RemoteMenu extends MachineMenu {
 
     @Override
     public List<Component> buttonLabels() {
-        return FrequencyButtons.labels();
+        return List.of();
     }
 
     @Override

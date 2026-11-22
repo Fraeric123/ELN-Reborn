@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * Slotless menu of the limiter. Button id = {@code field * 10 + step}, fields 0..3 are
  * min V, max V, min A, max A and the step indexes {@link #STEPS}.
  */
-public class LimiterMenu extends AbstractContainerMenu {
+public class LimiterMenu extends AbstractContainerMenu implements net.fraeric.elnr.network.NumericMenu {
 
     public static final int[] STEPS = {-100, -10, -1, 1, 10, 100};
 
@@ -75,14 +75,13 @@ public class LimiterMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean clickMenuButton(Player player, int id) {
-        int field = id / 10;
-        int step = id % 10;
-        if (entity == null || field < 0 || field > 3 || step >= STEPS.length) {
-            return false;
+    public void applyValues(Player player, int[] values) {
+        if (entity == null || player.level().isClientSide || values.length < 4) {
+            return;
         }
-        entity.adjust(field, STEPS[step]);
-        return true;
+        for (int i = 0; i < 4; i++) {
+            entity.setLimit(i, values[i]);
+        }
     }
 
     @Override

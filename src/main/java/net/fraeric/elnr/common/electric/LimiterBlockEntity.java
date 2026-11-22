@@ -35,6 +35,12 @@ public class LimiterBlockEntity extends BlockEntity {
         return limits[field];
     }
 
+    public void setLimit(int field, int value) {
+        limits[field] = Math.max(0, Math.min(field < 2 ? MAX_VOLTAGE : MAX_CURRENT, value));
+        poll = 0;
+        setChanged();
+    }
+
     public void adjust(int field, int delta) {
         int max = field < 2 ? MAX_VOLTAGE : MAX_CURRENT;
         limits[field] = Math.max(0, Math.min(max, limits[field] + delta));

@@ -452,5 +452,6 @@
   "tooltip.elnr.redstone_switch.1": "Dvouvývodový spínač ovládaný redstonem.",
   "tooltip.elnr.redstone_switch.2": "Sepnutý, dokud dostává redstone signál. Shift + prázdná ruka ho otočí.",
   "gui.elnr.street_lamp.bulb": "Žárovka",
-  "gui.elnr.street_lamp.cable": "Kabel"
+  "gui.elnr.street_lamp.cable": "Kabel",
+  "gui.elnr.wireless.frequency_label": "Frekvence"
 }

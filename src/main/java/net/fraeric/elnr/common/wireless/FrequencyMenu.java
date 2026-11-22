@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.List;
 
 /** Frequency screen of the wireless switch and the transmitter. */
-public class FrequencyMenu extends MachineMenu {
+public class FrequencyMenu extends MachineMenu implements net.fraeric.elnr.network.NumericMenu {
 
     private final BlockEntity be;
 
@@ -43,6 +43,16 @@ public class FrequencyMenu extends MachineMenu {
     }
 
     @Override
+    public void applyValues(Player player, int[] values) {
+        if (player.level().isClientSide || values.length < 1 || !(be instanceof FrequencyHolder holder)) {
+            return;
+        }
+        int next = Math.max(0, Math.min(FrequencyHolder.MAX_FREQUENCY, values[0]));
+        holder.setFrequency(next);
+        data.set(0, next);
+    }
+
+    @Override
     public List<Component> infoLines() {
         return List.of(Component.translatable("gui.elnr.wireless.frequency", get(0)),
                 Component.translatable("gui.elnr.wireless.range", (int) WirelessManager.RANGE));
@@ -50,7 +60,7 @@ public class FrequencyMenu extends MachineMenu {
 
     @Override
     public List<Component> buttonLabels() {
-        return FrequencyButtons.labels();
+        return List.of();
     }
 
     @Override
