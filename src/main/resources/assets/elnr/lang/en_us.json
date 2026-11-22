@@ -447,5 +447,8 @@
   "gui.elnr.limiter.max_current": "Max current",
   "gui.elnr.limiter.closed": "Closed (in limits)",
   "gui.elnr.limiter.open": "Open (out of limits)",
-  "gui.elnr.limiter.measured": "Measured: %s V, %s A"
+  "gui.elnr.limiter.measured": "Measured: %s V, %s A",
+  "block.elnr.redstone_switch": "Redstone Switch",
+  "tooltip.elnr.redstone_switch.1": "Two-terminal switch controlled by redstone.",
+  "tooltip.elnr.redstone_switch.2": "Closed while it receives a redstone signal. Sneak + empty hand rotates it."
 }

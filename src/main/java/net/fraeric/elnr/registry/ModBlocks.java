@@ -129,6 +129,10 @@ public class ModBlocks {
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion(),
                     1600.0D, 20.0D),
                     "tooltip.elnr.limiter.1", "tooltip.elnr.limiter.2", "tooltip.elnr.limiter.3");
+    public static final RegistryObject<Block> REDSTONE_SWITCH =
+            registerBlock("redstone_switch", () -> new net.fraeric.elnr.common.electric.RedstoneSwitchBlock(
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.redstone_switch.1", "tooltip.elnr.redstone_switch.2");
     public static final RegistryObject<Block> TIMER =
             registerBlock("timer", () -> new TimerBlock(
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),

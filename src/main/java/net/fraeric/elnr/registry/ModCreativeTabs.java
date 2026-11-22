@@ -111,6 +111,7 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.AMMETER.get());
                 output.accept(ModBlocks.WATTMETER.get());
                 output.accept(ModBlocks.LIMITER.get());
+                output.accept(ModBlocks.REDSTONE_SWITCH.get());
             });
 
     public static final RegistryObject<CreativeModeTab> TOOLS_TAB = tab("tools",
