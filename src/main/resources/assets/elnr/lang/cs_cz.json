@@ -453,5 +453,12 @@
   "tooltip.elnr.redstone_switch.2": "Sepnutý, dokud dostává redstone signál. Shift + prázdná ruka ho otočí.",
   "gui.elnr.street_lamp.bulb": "Žárovka",
   "gui.elnr.street_lamp.cable": "Kabel",
-  "gui.elnr.wireless.frequency_label": "Frekvence"
+  "gui.elnr.wireless.frequency_label": "Frekvence",
+  "block.elnr.wind_turbine": "Větrná turbína",
+  "tooltip.elnr.wind_turbine.1": "Čím vyšší sloup pod ní stojí, tím větší má vrtule, tím rychleji se točí a tím víc energie vyrobí. Bez limitu.",
+  "tooltip.elnr.wind_turbine.2": "Dává 200 V. Potřebuje sloup alespoň cca 4 bloky, při 100 blocích dává megawatty.",
+  "message.elnr.wind_turbine.info": "Vítr: %s m/s | Rotor: %s ot/min | Výkon: %s @ %s V | Sloup: %s bloků",
+  "block.elnr.wind_turbine_pole": "Sloup větrné turbíny",
+  "tooltip.elnr.wind_turbine_pole.1": "Postav pod větrnou turbínu. Široké vrstvy samy narostou z dalších bloků kolem.",
+  "tooltip.elnr.wind_turbine_pole.2": "Dole tlustý, nahoře tenký. Vrstva je jeden velký blok. Výška = vítr, velikost vrtulí, otáčky a výkon."
 }

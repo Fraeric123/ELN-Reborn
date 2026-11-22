@@ -138,6 +138,10 @@ public class ELNReborn
             event.registerBlockEntityRenderer(ModBlockEntities.CABLE.get(), CableBlockRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.STAND.get(), StandBlockRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.METER.get(), net.fraeric.elnr.client.MeterRenderer::new);
+            event.registerBlockEntityRenderer(net.fraeric.elnr.registry.ModMachines.WIND_TURBINE_BE.get(),
+                    net.fraeric.elnr.client.WindTurbineRenderer::new);
+            event.registerBlockEntityRenderer(net.fraeric.elnr.registry.ModMachines.WIND_TURBINE_POLE_BE.get(),
+                    net.fraeric.elnr.client.WindTurbinePoleRenderer::new);
         }
     }
 }

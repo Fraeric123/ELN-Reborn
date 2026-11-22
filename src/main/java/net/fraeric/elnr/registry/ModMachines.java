@@ -67,6 +67,16 @@ public final class ModMachines {
     public static final RegistryObject<Item> GENERATOR_ITEM = ModItems.ITEMS.register("generator",
             () -> new net.fraeric.elnr.common.item.TooltipBlockItem(GENERATOR.get(), new Item.Properties(),
                     "tooltip.elnr.generator.1", "tooltip.elnr.generator.2"));
+    public static final RegistryObject<Block> WIND_TURBINE = ModBlocks.BLOCKS.register("wind_turbine",
+            () -> new WindTurbineBlock(metal(3.0F)));
+    public static final RegistryObject<Item> WIND_TURBINE_ITEM = ModItems.ITEMS.register("wind_turbine",
+            () -> new net.fraeric.elnr.common.item.TooltipBlockItem(WIND_TURBINE.get(), new Item.Properties(),
+                    "tooltip.elnr.wind_turbine.1", "tooltip.elnr.wind_turbine.2"));
+    public static final RegistryObject<Block> WIND_TURBINE_POLE = ModBlocks.BLOCKS.register("wind_turbine_pole",
+            () -> new WindTurbinePoleBlock(metal(2.0F)));
+    public static final RegistryObject<Item> WIND_TURBINE_POLE_ITEM = ModItems.ITEMS.register("wind_turbine_pole",
+            () -> new net.fraeric.elnr.common.item.TooltipBlockItem(WIND_TURBINE_POLE.get(), new Item.Properties(),
+                    "tooltip.elnr.wind_turbine_pole.1", "tooltip.elnr.wind_turbine_pole.2"));
     public static final RegistryObject<Block> FE_CONVERTER = ModBlocks.BLOCKS.register("fe_converter",
             () -> new FeConverterBlock(metal(3.0F)));
     public static final RegistryObject<Item> FE_CONVERTER_ITEM = ModItems.ITEMS.register("fe_converter",
@@ -86,6 +96,12 @@ public final class ModMachines {
     public static final RegistryObject<BlockEntityType<GeneratorBlockEntity>> GENERATOR_BE =
             ModBlockEntities.BLOCK_ENTITIES.register("generator",
                     () -> BlockEntityType.Builder.of(GeneratorBlockEntity::new, GENERATOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<WindTurbineBlockEntity>> WIND_TURBINE_BE =
+            ModBlockEntities.BLOCK_ENTITIES.register("wind_turbine",
+                    () -> BlockEntityType.Builder.of(WindTurbineBlockEntity::new, WIND_TURBINE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<WindTurbinePoleBlockEntity>> WIND_TURBINE_POLE_BE =
+            ModBlockEntities.BLOCK_ENTITIES.register("wind_turbine_pole",
+                    () -> BlockEntityType.Builder.of(WindTurbinePoleBlockEntity::new, WIND_TURBINE_POLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<FeConverterBlockEntity>> FE_BE =
             ModBlockEntities.BLOCK_ENTITIES.register("fe_converter",
                     () -> BlockEntityType.Builder.of(FeConverterBlockEntity::new, FE_CONVERTER.get()).build(null));

@@ -340,17 +340,19 @@ public final class ElectricNetwork {
 
     /** Network a machine is wired to (through any cable piece touching it), or null when it has none. */
     public static @Nullable Analysis analyzeMachine(BlockGetter level, BlockPos pos) {
-        for (Direction direction : Direction.values()) {
-            BlockPos p = pos.relative(direction);
-            BlockState state = level.getBlockState(p);
-            if (state.getBlock() instanceof CableBlock cable && !cable.isBundled()) {
-                for (Direction face : Direction.values()) {
-                    if (cable.hasFace(state, face)) {
-                        return collect(level, new Node(p.immutable(), face), new HashSet<>());
+        for (BlockPos base : net.fraeric.elnr.common.machine.WindTurbineTower.members(level, pos)) {
+            for (Direction direction : Direction.values()) {
+                BlockPos p = base.relative(direction);
+                BlockState state = level.getBlockState(p);
+                if (state.getBlock() instanceof CableBlock cable && !cable.isBundled()) {
+                    for (Direction face : Direction.values()) {
+                        if (cable.hasFace(state, face)) {
+                            return collect(level, new Node(p.immutable(), face), new HashSet<>());
+                        }
                     }
+                } else if (state.getBlock() instanceof StandBlock stand && !stand.cableType().isBundled()) {
+                    return collect(level, new Node(p.immutable(), Direction.DOWN, -1), new HashSet<>());
                 }
-            } else if (state.getBlock() instanceof StandBlock stand && !stand.cableType().isBundled()) {
-                return collect(level, new Node(p.immutable(), Direction.DOWN, -1), new HashSet<>());
             }
         }
         return null;
@@ -409,8 +411,11 @@ public final class ElectricNetwork {
                         addPiecesTouching(level, devicePos, EnumSet.allOf(Direction.class), null, null, queue, visited);
                     }
                 } else if (device instanceof ElectricMachineBlock) {
-                    if (machines.add(devicePos)) {
-                        addPiecesTouching(level, devicePos, EnumSet.allOf(Direction.class), null, null, queue, visited);
+                    // A wind turbine and its pole are one device.
+                    for (BlockPos member : net.fraeric.elnr.common.machine.WindTurbineTower.members(level, devicePos)) {
+                        if (machines.add(member)) {
+                            addPiecesTouching(level, member, EnumSet.allOf(Direction.class), null, null, queue, visited);
+                        }
                     }
                 } else if (device instanceof SpeakerBlock
                         || device instanceof net.fraeric.elnr.common.electric.NetworkListener) {

@@ -58,6 +58,8 @@ public class ModCreativeTabs {
             () -> new ItemStack(ModMachines.GENERATOR_ITEM.get()), (parameters, output) -> {
                 output.accept(ModBlocks.VOLTAGE_SOURCE.get());
                 output.accept(ModMachines.GENERATOR_ITEM.get());
+                output.accept(ModMachines.WIND_TURBINE_ITEM.get());
+                output.accept(ModMachines.WIND_TURBINE_POLE_ITEM.get());
                 output.accept(ModMachines.FE_CONVERTER_ITEM.get());
             });
 

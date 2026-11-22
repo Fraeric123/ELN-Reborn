@@ -38,6 +38,11 @@ public final class ModSounds {
         }
     }
 
+    public static final net.minecraftforge.registries.RegistryObject<SoundEvent> WIND_SLOW = SOUNDS.register(
+            "windturbine_big_sf", () -> SoundEvent.createVariableRangeEvent(id("windturbine_big_sf")));
+    public static final net.minecraftforge.registries.RegistryObject<SoundEvent> WIND_FAST = SOUNDS.register(
+            "windturbine_big_ff", () -> SoundEvent.createVariableRangeEvent(id("windturbine_big_ff")));
+
     public static ResourceLocation id(String name) {
         return new ResourceLocation(ELNReborn.MODID, name);
     }

@@ -453,5 +453,12 @@
   "tooltip.elnr.redstone_switch.2": "Closed while it receives a redstone signal. Sneak + empty hand rotates it.",
   "gui.elnr.street_lamp.bulb": "Bulb",
   "gui.elnr.street_lamp.cable": "Cable",
-  "gui.elnr.wireless.frequency_label": "Frequency"
+  "gui.elnr.wireless.frequency_label": "Frequency",
+  "block.elnr.wind_turbine": "Wind Turbine",
+  "tooltip.elnr.wind_turbine.1": "The taller the pole under it, the bigger the rotor, the faster it spins and the more power it makes. No limit.",
+  "tooltip.elnr.wind_turbine.2": "Outputs 200 V. Needs a pole of about 4+ blocks, 100 blocks makes megawatts.",
+  "message.elnr.wind_turbine.info": "Wind: %s m/s | Rotor: %s rpm | Output: %s @ %s V | Pole: %s blocks",
+  "block.elnr.wind_turbine_pole": "Wind Turbine Pole",
+  "tooltip.elnr.wind_turbine_pole.1": "Place under a wind turbine. Wide layers grow from extra blocks around it by themselves.",
+  "tooltip.elnr.wind_turbine_pole.2": "Thick at the bottom, thin at the top. A layer is one big block. Height = wind, rotor size, speed and power."
 }

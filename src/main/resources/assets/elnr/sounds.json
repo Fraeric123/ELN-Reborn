@@ -124,5 +124,23 @@
         "attenuation_distance": 16
       }
     ]
+  },
+  "windturbine_big_sf": {
+    "sounds": [
+      {
+        "name": "elnr:windturbine_big_sf",
+        "stream": false,
+        "attenuation_distance": 32
+      }
+    ]
+  },
+  "windturbine_big_ff": {
+    "sounds": [
+      {
+        "name": "elnr:windturbine_big_ff",
+        "stream": false,
+        "attenuation_distance": 32
+      }
+    ]
   }
 }
