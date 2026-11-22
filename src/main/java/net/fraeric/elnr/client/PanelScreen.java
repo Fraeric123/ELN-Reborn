@@ -34,7 +34,9 @@ public class PanelScreen extends AbstractContainerScreen<MachineMenu> {
                 if (minecraft != null && minecraft.gameMode != null) {
                     minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
                 }
-            }).bounds(leftPos + 8 + i * 84, topPos + 56, 80, 14).build();
+            }).bounds(labels.size() > 2 ? leftPos + 8 + (i % 3) * 56 : leftPos + 8 + i * 84,
+                            labels.size() > 2 ? topPos + 40 + (i / 3) * 16 : topPos + 56,
+                            labels.size() > 2 ? 54 : 80, 14).build();
             buttons.add(button);
             addRenderableWidget(button);
         }

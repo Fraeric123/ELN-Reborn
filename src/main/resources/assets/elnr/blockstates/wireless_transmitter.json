@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "elnr:block/transmitter_off"
+    },
+    "active=true": {
+      "model": "elnr:block/transmitter_on"
+    }
+  }
+}

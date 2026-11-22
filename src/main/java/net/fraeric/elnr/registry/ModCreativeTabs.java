@@ -77,6 +77,10 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.KNIFE_SWITCH.get());
                 output.accept(ModBlocks.BUTTON.get());
                 output.accept(ModBlocks.TIMER.get());
+                output.accept(ModWireless.WIRELESS_SWITCH_ITEM.get());
+                output.accept(ModWireless.REMOTE.get());
+                output.accept(ModWireless.TRANSMITTER_ITEM.get());
+                output.accept(ModWireless.REDSTONE_SOURCE_ITEM.get());
                 ModBlocks.RELAYS.forEach(relay -> output.accept(relay.get()));
                 ModItems.RELAY_COILS.forEach(coil -> output.accept(coil.get()));
                 output.accept(ModItems.RELAY_COIL_BURNT.get());
@@ -93,6 +97,7 @@ public class ModCreativeTabs {
             () -> new ItemStack(ModMachines.MINER_ITEM.get()), (parameters, output) -> {
                 output.accept(ModMachines.MINER_ITEM.get());
                 output.accept(ModMachines.FURNACE_ITEM.get());
+                output.accept(ModWireless.C4_ITEM.get());
                 ModItems.BULBS.forEach(bulb -> output.accept(bulb.get()));
                 output.accept(ModBlocks.SOCKET.get());
                 output.accept(ModBlocks.STREET_LAMP.get());

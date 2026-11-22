@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "elnr:block/redstone_source_off"
+    },
+    "powered=true": {
+      "model": "elnr:block/redstone_source_on"
+    }
+  }
+}
