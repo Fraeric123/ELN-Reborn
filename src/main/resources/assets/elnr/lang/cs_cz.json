@@ -436,5 +436,16 @@
   "block.elnr.ammeter": "Ampérmetr",
   "block.elnr.wattmeter": "Wattmetr",
   "tooltip.elnr.meter.1": "Nástěnný panelový měřák. Polož ho ke kabelu.",
-  "tooltip.elnr.meter.2": "Ukazuje napětí (V), proud (A) nebo výkon (W) připojené sítě."
+  "tooltip.elnr.meter.2": "Ukazuje napětí (V), proud (A) nebo výkon (W) připojené sítě.",
+  "block.elnr.limiter": "Omezovač napětí/proudu",
+  "tooltip.elnr.limiter.1": "Dvouvývodový spínač, který je sepnutý jen když napětí a proud jsou v nastavených mezích.",
+  "tooltip.elnr.limiter.2": "Pravý klik nastaví min/max napětí a proudu. Shift + prázdná ruka ho otočí.",
+  "tooltip.elnr.limiter.3": "Minimální proud se kontroluje jen když je sepnutý.",
+  "gui.elnr.limiter.min_voltage": "Min napětí",
+  "gui.elnr.limiter.max_voltage": "Max napětí",
+  "gui.elnr.limiter.min_current": "Min proud",
+  "gui.elnr.limiter.max_current": "Max proud",
+  "gui.elnr.limiter.closed": "Sepnuto (v mezích)",
+  "gui.elnr.limiter.open": "Rozepnuto (mimo meze)",
+  "gui.elnr.limiter.measured": "Naměřeno: %s V, %s A"
 }

@@ -436,5 +436,16 @@
   "block.elnr.ammeter": "Ammeter",
   "block.elnr.wattmeter": "Wattmeter",
   "tooltip.elnr.meter.1": "Wall-mounted panel meter. Place it next to a cable.",
-  "tooltip.elnr.meter.2": "Shows the voltage (V), current (A) or power (W) of that network."
+  "tooltip.elnr.meter.2": "Shows the voltage (V), current (A) or power (W) of that network.",
+  "block.elnr.limiter": "Voltage/Current Limiter",
+  "tooltip.elnr.limiter.1": "Two-terminal switch that closes only while voltage and current are inside the set limits.",
+  "tooltip.elnr.limiter.2": "Right-click to set min/max volts and amps. Sneak + empty hand rotates it.",
+  "tooltip.elnr.limiter.3": "Min current is only checked while closed.",
+  "gui.elnr.limiter.min_voltage": "Min voltage",
+  "gui.elnr.limiter.max_voltage": "Max voltage",
+  "gui.elnr.limiter.min_current": "Min current",
+  "gui.elnr.limiter.max_current": "Max current",
+  "gui.elnr.limiter.closed": "Closed (in limits)",
+  "gui.elnr.limiter.open": "Open (out of limits)",
+  "gui.elnr.limiter.measured": "Measured: %s V, %s A"
 }

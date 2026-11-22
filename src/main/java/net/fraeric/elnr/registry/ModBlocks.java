@@ -124,6 +124,11 @@ public class ModBlocks {
                     net.fraeric.elnr.common.electric.MeterBlock.Kind.POWER,
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
                     "tooltip.elnr.meter.1", "tooltip.elnr.meter.2");
+    public static final RegistryObject<Block> LIMITER =
+            registerBlock("limiter", () -> new net.fraeric.elnr.common.electric.LimiterBlock(
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion(),
+                    1600.0D, 20.0D),
+                    "tooltip.elnr.limiter.1", "tooltip.elnr.limiter.2", "tooltip.elnr.limiter.3");
     public static final RegistryObject<Block> TIMER =
             registerBlock("timer", () -> new TimerBlock(
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),

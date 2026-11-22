@@ -62,6 +62,11 @@ public class ModBlockEntities {
                     () -> BlockEntityType.Builder.of(net.fraeric.elnr.common.electric.MeterBlockEntity::new,
                             ModBlocks.VOLTMETER.get(), ModBlocks.AMMETER.get(), ModBlocks.WATTMETER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<net.fraeric.elnr.common.electric.LimiterBlockEntity>> LIMITER =
+            BLOCK_ENTITIES.register("limiter",
+                    () -> BlockEntityType.Builder.of(net.fraeric.elnr.common.electric.LimiterBlockEntity::new,
+                            ModBlocks.LIMITER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TimerBlockEntity>> TIMER =
             BLOCK_ENTITIES.register("timer",
                     () -> BlockEntityType.Builder.of(TimerBlockEntity::new, ModBlocks.TIMER.get()).build(null));

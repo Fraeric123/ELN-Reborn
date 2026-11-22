@@ -33,6 +33,10 @@ public class ModMenus {
             MENUS.register("relay", () -> IForgeMenuType.create(
                     (windowId, inventory, data) -> new net.fraeric.elnr.common.electric.RelayMenu(windowId, inventory, data.readBlockPos())));
 
+    public static final RegistryObject<MenuType<net.fraeric.elnr.common.electric.LimiterMenu>> LIMITER =
+            MENUS.register("limiter", () -> IForgeMenuType.create(
+                    (windowId, inventory, data) -> new net.fraeric.elnr.common.electric.LimiterMenu(windowId, inventory, data.readBlockPos())));
+
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }
