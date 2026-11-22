@@ -417,8 +417,14 @@ public final class ElectricNetwork {
                     // Sound blocks, meters and C4 only listen to the network they touch.
                     speakers.add(devicePos);
                 } else if (device instanceof SocketBlock) {
+                    if (!loadAccepts(level, devicePos, cable)) {
+                        continue;
+                    }
                     discoverLoad(level, devicePos, sources, loads, queue, visited);
                 } else if (device instanceof StreetLampBlock) {
+                    if (!loadAccepts(level, loadBase(level, devicePos), cable)) {
+                        continue;
+                    }
                     discoverLoad(level, loadBase(level, devicePos), sources, loads, queue, visited);
                 } else if (device instanceof SwitchBlock switchBlock) {
                     // Original ELN: the switch only has two terminals, at both ends of
@@ -496,6 +502,20 @@ public final class ElectricNetwork {
             }
         }
         return new Analysis(pieces, sources, loads, closedSwitches, openSwitches, voltage, current, speakers, machines, machineCurrent);
+    }
+
+    /**
+     * A load only joins a network through a cable its own plugged cable can link to
+     * (same tier and compatible colour); a thicker or thinner cable beside it must not
+     * pull it into the wrong network.
+     */
+    private static boolean loadAccepts(BlockGetter level, BlockPos loadPos, CableBlock cable) {
+        BulbHolder holder = loadAt(level, loadPos);
+        if (holder == null || !holder.hasCable()) {
+            return false;
+        }
+        CableBlock plugged = pluggedBlock(holder);
+        return plugged != null && CableBlock.canLink(plugged, -1, cable);
     }
 
     private static void discoverLoad(BlockGetter level, BlockPos loadPos, Set<BlockPos> sources,

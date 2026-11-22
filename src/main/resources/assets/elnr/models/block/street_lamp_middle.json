@@ -1,42 +1,108 @@
 {
-  "textures": {
-    "particle": "minecraft:block/iron_block",
-    "pole": "minecraft:block/iron_block",
-    "cap": "minecraft:block/copper_block",
-    "glass": "minecraft:block/glass"
-  },
-  "elements": [
-    {
-      "from": [
-        6,
-        0,
-        6
-      ],
-      "to": [
-        10,
-        16,
-        10
-      ],
-      "faces": {
-        "down": {
-          "texture": "#pole"
-        },
-        "up": {
-          "texture": "#pole"
-        },
-        "north": {
-          "texture": "#pole"
-        },
-        "south": {
-          "texture": "#pole"
-        },
-        "west": {
-          "texture": "#pole"
-        },
-        "east": {
-          "texture": "#pole"
-        }
-      }
+ "render_type": "minecraft:translucent",
+ "textures": {
+  "particle": "minecraft:block/gray_concrete",
+  "pole": "minecraft:block/gray_concrete",
+  "trim": "minecraft:block/black_concrete",
+  "roof": "minecraft:block/oxidized_copper",
+  "glass": "minecraft:block/glass"
+ },
+ "elements": [
+  {
+   "from": [
+    7,
+    0,
+    7
+   ],
+   "to": [
+    9,
+    16,
+    9
+   ],
+   "faces": {
+    "up": {
+     "texture": "#pole"
+    },
+    "down": {
+     "texture": "#pole"
+    },
+    "north": {
+     "texture": "#pole"
+    },
+    "south": {
+     "texture": "#pole"
+    },
+    "east": {
+     "texture": "#pole"
+    },
+    "west": {
+     "texture": "#pole"
     }
-  ]
+   }
+  },
+  {
+   "from": [
+    6,
+    7,
+    6
+   ],
+   "to": [
+    10,
+    8,
+    10
+   ],
+   "faces": {
+    "up": {
+     "texture": "#trim"
+    },
+    "down": {
+     "texture": "#trim"
+    },
+    "north": {
+     "texture": "#trim"
+    },
+    "south": {
+     "texture": "#trim"
+    },
+    "east": {
+     "texture": "#trim"
+    },
+    "west": {
+     "texture": "#trim"
+    }
+   }
+  },
+  {
+   "from": [
+    6.5,
+    8,
+    6.5
+   ],
+   "to": [
+    9.5,
+    9,
+    9.5
+   ],
+   "faces": {
+    "up": {
+     "texture": "#trim"
+    },
+    "down": {
+     "texture": "#trim"
+    },
+    "north": {
+     "texture": "#trim"
+    },
+    "south": {
+     "texture": "#trim"
+    },
+    "east": {
+     "texture": "#trim"
+    },
+    "west": {
+     "texture": "#trim"
+    }
+   }
+  }
+ ]
 }

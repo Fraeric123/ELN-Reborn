@@ -63,13 +63,16 @@ public class StreetLampBlock extends Block implements EntityBlock {
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
 
     private static final VoxelShape LOWER_SHAPE = Shapes.or(
-            part(5, 0, 5, 11, 3, 11), part(6, 3, 6, 10, 16, 10));
+            part(4, 0, 4, 12, 2, 12), part(5, 2, 5, 11, 4, 11),
+            part(6, 4, 6, 10, 6, 10), part(6, 6, 6, 10, 16, 10));
     private static final VoxelShape MIDDLE_SHAPE = part(6, 0, 6, 10, 16, 10);
     private static final VoxelShape HEAD_SHAPE = Shapes.or(
-            part(6, 0, 6, 10, 9, 10),
-            part(4, 9, 4, 12, 11, 12),
-            part(5, 11, 5, 11, 15, 11),
-            part(6, 15, 6, 10, 16, 10));
+            part(6, 0, 6, 10, 5, 10),
+            part(4, 5, 4, 12, 6, 12),
+            part(4.5, 6, 4.5, 11.5, 13, 11.5),
+            part(4, 13, 4, 12, 14, 12),
+            part(5, 14, 5, 11, 15, 11),
+            part(6.5, 15, 6.5, 9.5, 16, 9.5));
 
     public StreetLampBlock(Properties properties) {
         super(properties);
