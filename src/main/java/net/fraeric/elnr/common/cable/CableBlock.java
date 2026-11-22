@@ -283,9 +283,15 @@ public class CableBlock extends Block implements EntityBlock {
                 return -1.0F;
             }
         } else if (block instanceof StreetLampBlock) {
-            if (face != Direction.DOWN || device.getValue(StreetLampBlock.PART) != StreetLampBlock.Part.LOWER) {
+            if (device.getValue(StreetLampBlock.PART) != StreetLampBlock.Part.LOWER) {
                 return -1.0F;
             }
+            // The pole base is 4 px in from the block edge, the pole itself 6 px.
+            BulbHolder lamp = ElectricNetwork.loadAt(level, devicePos);
+            if (lamp == null || !lamp.hasCable() || ElectricNetwork.pluggedTier(lamp) != cable.getTier()) {
+                return -1.0F;
+            }
+            return face == Direction.DOWN ? 4.0F / 16.0F : 6.0F / 16.0F;
         } else {
             return -1.0F;
         }

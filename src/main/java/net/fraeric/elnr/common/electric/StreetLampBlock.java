@@ -237,59 +237,14 @@ public class StreetLampBlock extends Block implements EntityBlock {
         if (!(level.getBlockEntity(basePos) instanceof StreetLampBlockEntity lamp)) {
             return InteractionResult.PASS;
         }
-        ItemStack held = player.getItemInHand(hand);
-
-        // Plug the cable straight into the lamp base.
-        if (held.getItem() instanceof CableItem) {
-            if (lamp.hasCable()) {
-                return InteractionResult.FAIL;
-            }
-            if (!level.isClientSide) {
-                lamp.setCable(new ItemStack(held.getItem()));
-                if (!player.getAbilities().instabuild) {
-                    held.shrink(1);
-                }
-                ElectricNetwork.updateAt(level, basePos);
-            }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        if (!level.isClientSide && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            net.minecraftforge.network.NetworkHooks.openScreen(serverPlayer,
+                    new net.minecraft.world.SimpleMenuProvider(
+                            (id, inventory, p) -> new StreetLampMenu(id, inventory, lamp),
+                            net.minecraft.network.chat.Component.translatable(getDescriptionId())),
+                    basePos);
         }
-
-        if (held.getItem() instanceof BulbItem && !lamp.hasBulb()) {
-            if (!level.isClientSide) {
-                lamp.setBulb(new ItemStack(held.getItem()));
-                if (!player.getAbilities().instabuild) {
-                    held.shrink(1);
-                }
-                ElectricNetwork.updateAt(level, basePos);
-            }
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-
-        if (held.isEmpty()) {
-            if (level.isClientSide) {
-                return lamp.hasCable() || lamp.hasBulb()
-                        ? InteractionResult.SUCCESS : InteractionResult.PASS;
-            }
-            ItemStack removed = ItemStack.EMPTY;
-            if (lamp.hasCable()) {
-                removed = lamp.getCable().copy();
-                lamp.setCable(ItemStack.EMPTY);
-            } else if (lamp.hasBulb()) {
-                removed = lamp.getBulb().copy();
-                lamp.setBulb(ItemStack.EMPTY);
-            }
-            if (removed.isEmpty()) {
-                return InteractionResult.PASS;
-            }
-            if (!player.addItem(removed)) {
-                player.drop(removed, false);
-            }
-            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.4F, 1.0F);
-            ElectricNetwork.updateAt(level, basePos);
-            return InteractionResult.CONSUME;
-        }
-
-        return InteractionResult.PASS;
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Override

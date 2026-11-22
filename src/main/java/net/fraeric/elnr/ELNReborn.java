@@ -78,6 +78,8 @@ public class ELNReborn
                 net.minecraft.client.gui.screens.MenuScreens.register(
                         ModMenus.TIMER.get(), TimerScreen::new);
                 net.minecraft.client.gui.screens.MenuScreens.register(
+                        ModMenus.STREET_LAMP.get(), net.fraeric.elnr.client.StreetLampScreen::new);
+                net.minecraft.client.gui.screens.MenuScreens.register(
                         ModMenus.LIMITER.get(), net.fraeric.elnr.client.LimiterScreen::new);
                 net.minecraft.client.gui.screens.MenuScreens.register(
                         ModMenus.RELAY.get(), net.fraeric.elnr.client.RelayScreen::new);

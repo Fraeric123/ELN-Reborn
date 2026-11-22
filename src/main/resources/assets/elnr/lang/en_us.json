@@ -450,5 +450,7 @@
   "gui.elnr.limiter.measured": "Measured: %s V, %s A",
   "block.elnr.redstone_switch": "Redstone Switch",
   "tooltip.elnr.redstone_switch.1": "Two-terminal switch controlled by redstone.",
-  "tooltip.elnr.redstone_switch.2": "Closed while it receives a redstone signal. Sneak + empty hand rotates it."
+  "tooltip.elnr.redstone_switch.2": "Closed while it receives a redstone signal. Sneak + empty hand rotates it.",
+  "gui.elnr.street_lamp.bulb": "Bulb",
+  "gui.elnr.street_lamp.cable": "Cable"
 }
