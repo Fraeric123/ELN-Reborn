@@ -20,7 +20,7 @@ public final class ModWireless {
     }
 
     public static final RegistryObject<Block> C4 = ModBlocks.BLOCKS.register("c4",
-            () -> new C4Block(BlockBehaviour.Properties.of().strength(0.8F, 1.0F).sound(SoundType.SLIME_BLOCK)));
+            () -> new C4Block(BlockBehaviour.Properties.of().strength(0.8F, 1.0F).sound(SoundType.SLIME_BLOCK).noOcclusion()));
     public static final RegistryObject<Item> C4_ITEM = ModItems.ITEMS.register("c4",
             () -> new TooltipBlockItem(C4.get(), new Item.Properties(), "tooltip.elnr.c4.1", "tooltip.elnr.c4.2"));
 

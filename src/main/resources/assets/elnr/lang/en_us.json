@@ -418,8 +418,8 @@
   "block.elnr.wireless_transmitter": "Wireless Transmitter",
   "block.elnr.electric_redstone_source": "Electric Redstone Source",
   "item.elnr.wireless_remote": "Wireless Remote",
-  "tooltip.elnr.c4.1": "Detonates on a redstone signal, fire or another explosion.",
-  "tooltip.elnr.c4.2": "Blast strength 6 (TNT is 4).",
+  "tooltip.elnr.c4.1": "Small wall-mountable charge. Connect it to a cable: detonates when the network has 10 V or more.",
+  "tooltip.elnr.c4.2": "Also detonates on redstone, fire or another explosion. Blast strength 6.",
   "tooltip.elnr.wireless_switch.1": "Switch closed wirelessly on its frequency.",
   "tooltip.elnr.wireless_switch.2": "Remote pulse toggles it, a powered transmitter holds it closed. Right click = frequency.",
   "tooltip.elnr.transmitter.1": "Electrically powered transmitter, range 50 blocks.",
@@ -431,5 +431,10 @@
   "tooltip.elnr.remote.2": "Sneak + click: set the frequency.",
   "msg.elnr.remote_sent": "Signal sent on frequency %s (%s receivers)",
   "gui.elnr.wireless.frequency": "Frequency: %s",
-  "gui.elnr.wireless.range": "Range: %s blocks"
+  "gui.elnr.wireless.range": "Range: %s blocks",
+  "block.elnr.voltmeter": "Voltmeter",
+  "block.elnr.ammeter": "Ammeter",
+  "block.elnr.wattmeter": "Wattmeter",
+  "tooltip.elnr.meter.1": "Wall-mounted panel meter. Place it next to a cable.",
+  "tooltip.elnr.meter.2": "Shows the voltage (V), current (A) or power (W) of that network."
 }

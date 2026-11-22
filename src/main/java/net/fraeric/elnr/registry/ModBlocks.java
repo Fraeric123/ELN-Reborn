@@ -109,6 +109,21 @@ public class ModBlocks {
             registerBlock("alarm", () -> new SpeakerBlock(SpeakerKind.ALARM,
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
                     "tooltip.elnr.speaker.1", "tooltip.elnr.speaker.2");
+    public static final RegistryObject<Block> VOLTMETER =
+            registerBlock("voltmeter", () -> new net.fraeric.elnr.common.electric.MeterBlock(
+                    net.fraeric.elnr.common.electric.MeterBlock.Kind.VOLTAGE,
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.meter.1", "tooltip.elnr.meter.2");
+    public static final RegistryObject<Block> AMMETER =
+            registerBlock("ammeter", () -> new net.fraeric.elnr.common.electric.MeterBlock(
+                    net.fraeric.elnr.common.electric.MeterBlock.Kind.CURRENT,
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.meter.1", "tooltip.elnr.meter.2");
+    public static final RegistryObject<Block> WATTMETER =
+            registerBlock("wattmeter", () -> new net.fraeric.elnr.common.electric.MeterBlock(
+                    net.fraeric.elnr.common.electric.MeterBlock.Kind.POWER,
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.meter.1", "tooltip.elnr.meter.2");
     public static final RegistryObject<Block> TIMER =
             registerBlock("timer", () -> new TimerBlock(
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),

@@ -128,6 +128,14 @@ public final class ElectricNetwork {
             }
         }
 
+        // Meters and C4 without any cable next to them see nothing.
+        for (BlockPos start : starts) {
+            if (level.getBlockState(start).getBlock() instanceof net.fraeric.elnr.common.electric.NetworkListener listener
+                    && !hasAdjacentCable(level, start, null, true)) {
+                listener.onNetwork(level, start, 0.0D, 0.0D);
+            }
+        }
+
         for (BlockPos start : starts) {
             BlockState state = level.getBlockState(start);
             if (state.getBlock() instanceof StandBlock stand) {
@@ -404,8 +412,9 @@ public final class ElectricNetwork {
                     if (machines.add(devicePos)) {
                         addPiecesTouching(level, devicePos, EnumSet.allOf(Direction.class), null, null, queue, visited);
                     }
-                } else if (device instanceof SpeakerBlock) {
-                    // Sound blocks only listen to the voltage of the network they touch.
+                } else if (device instanceof SpeakerBlock
+                        || device instanceof net.fraeric.elnr.common.electric.NetworkListener) {
+                    // Sound blocks, meters and C4 only listen to the network they touch.
                     speakers.add(devicePos);
                 } else if (device instanceof SocketBlock) {
                     discoverLoad(level, devicePos, sources, loads, queue, visited);
@@ -562,7 +571,11 @@ public final class ElectricNetwork {
         }
 
         boolean signal = Math.abs(voltage) >= SpeakerBlock.SIGNAL_VOLTAGE;
-        for (BlockPos speakerPos : analysis.speakers()) {
+        for (BlockPos speakerPos : new ArrayList<>(analysis.speakers())) {
+            if (level.getBlockState(speakerPos).getBlock() instanceof net.fraeric.elnr.common.electric.NetworkListener listener) {
+                listener.onNetwork(level, speakerPos, voltage, totalCurrent);
+                continue;
+            }
             if (level.getBlockEntity(speakerPos) instanceof SpeakerBlockEntity speaker) {
                 speaker.setSignal(level, signal);
             }

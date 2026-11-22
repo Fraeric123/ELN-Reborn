@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
+    "facing=up": {
       "model": "elnr:block/c4"
+    },
+    "facing=down": {
+      "model": "elnr:block/c4",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "elnr:block/c4",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "elnr:block/c4",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elnr:block/c4",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elnr:block/c4",
+      "x": 90,
+      "y": 270
     }
   }
 }

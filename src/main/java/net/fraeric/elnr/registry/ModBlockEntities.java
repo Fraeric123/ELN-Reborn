@@ -57,6 +57,11 @@ public class ModBlockEntities {
                             ModBlocks.DOORBELL.get(), ModBlocks.SIREN.get(), ModBlocks.SCHOOL_BELL.get(),
                             ModBlocks.CLOCK_BELL.get(), ModBlocks.BELL.get(), ModBlocks.ALARM.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<net.fraeric.elnr.common.electric.MeterBlockEntity>> METER =
+            BLOCK_ENTITIES.register("meter",
+                    () -> BlockEntityType.Builder.of(net.fraeric.elnr.common.electric.MeterBlockEntity::new,
+                            ModBlocks.VOLTMETER.get(), ModBlocks.AMMETER.get(), ModBlocks.WATTMETER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TimerBlockEntity>> TIMER =
             BLOCK_ENTITIES.register("timer",
                     () -> BlockEntityType.Builder.of(TimerBlockEntity::new, ModBlocks.TIMER.get()).build(null));

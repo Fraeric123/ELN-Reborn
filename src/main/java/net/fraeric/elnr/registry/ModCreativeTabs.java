@@ -107,6 +107,9 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.CLOCK_BELL.get());
                 output.accept(ModBlocks.SIREN.get());
                 output.accept(ModBlocks.ALARM.get());
+                output.accept(ModBlocks.VOLTMETER.get());
+                output.accept(ModBlocks.AMMETER.get());
+                output.accept(ModBlocks.WATTMETER.get());
             });
 
     public static final RegistryObject<CreativeModeTab> TOOLS_TAB = tab("tools",

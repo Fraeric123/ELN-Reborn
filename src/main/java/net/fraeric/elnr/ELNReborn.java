@@ -131,6 +131,7 @@ public class ELNReborn
             event.registerEntityRenderer(ModEntities.EXAMPLE_ENTITY.get(), ExampleEntityRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.CABLE.get(), CableBlockRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.STAND.get(), StandBlockRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.METER.get(), net.fraeric.elnr.client.MeterRenderer::new);
         }
     }
 }

@@ -418,8 +418,8 @@
   "block.elnr.wireless_transmitter": "Bezdrátový vysílač",
   "block.elnr.electric_redstone_source": "Elektrický zdroj redstone",
   "item.elnr.wireless_remote": "Bezdrátový ovladač",
-  "tooltip.elnr.c4.1": "Vybuchne při redstone signálu, ohni nebo jiném výbuchu.",
-  "tooltip.elnr.c4.2": "Síla výbuchu 6 (TNT má 4).",
+  "tooltip.elnr.c4.1": "Malá nástěnná nálož. Připoj ke kabelu: vybuchne, když v síti je 10 V a víc.",
+  "tooltip.elnr.c4.2": "Vybuchne i při redstone, ohni nebo výbuchu. Síla výbuchu 6.",
   "tooltip.elnr.wireless_switch.1": "Spínač ovládaný bezdrátově na své frekvenci.",
   "tooltip.elnr.wireless_switch.2": "Pulz z ovladače ho přepne, napájený vysílač ho drží sepnutý. Pravý klik = frekvence.",
   "tooltip.elnr.transmitter.1": "Elektricky napájený vysílač, dosah 50 bloků.",
@@ -431,5 +431,10 @@
   "tooltip.elnr.remote.2": "Krčení + klik: nastavení frekvence.",
   "msg.elnr.remote_sent": "Signál vyslán na frekvenci %s (přijímačů: %s)",
   "gui.elnr.wireless.frequency": "Frekvence: %s",
-  "gui.elnr.wireless.range": "Dosah: %s bloků"
+  "gui.elnr.wireless.range": "Dosah: %s bloků",
+  "block.elnr.voltmeter": "Voltmetr",
+  "block.elnr.ammeter": "Ampérmetr",
+  "block.elnr.wattmeter": "Wattmetr",
+  "tooltip.elnr.meter.1": "Nástěnný panelový měřák. Polož ho ke kabelu.",
+  "tooltip.elnr.meter.2": "Ukazuje napětí (V), proud (A) nebo výkon (W) připojené sítě."
 }

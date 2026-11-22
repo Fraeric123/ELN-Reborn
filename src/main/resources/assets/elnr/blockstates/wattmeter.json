@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "elnr:block/wattmeter"
+    },
+    "facing=down": {
+      "model": "elnr:block/wattmeter",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "elnr:block/wattmeter",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "elnr:block/wattmeter",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elnr:block/wattmeter",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elnr:block/wattmeter",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
