@@ -1,6 +1,8 @@
 package net.fraeric.elnr.common.cable;
 
 import net.fraeric.elnr.common.electric.BulbHolder;
+import net.fraeric.elnr.common.machine.ElectricMachineBlock;
+import net.fraeric.elnr.common.machine.ElectricMachineBlockEntity;
 import net.fraeric.elnr.common.item.BulbItem;
 import net.fraeric.elnr.common.electric.SocketBlock;
 import net.fraeric.elnr.common.electric.SpeakerBlock;
@@ -295,7 +297,8 @@ public final class ElectricNetwork {
      */
     public record Analysis(Set<Node> pieces, Set<BlockPos> sources, Set<BlockPos> loads,
                            Set<BlockPos> closedSwitches, Set<BlockPos> openSwitches,
-                           double voltage, double current, Set<BlockPos> speakers) {
+                           double voltage, double current, Set<BlockPos> speakers,
+                           Set<BlockPos> machines, double machineCurrent) {
     }
 
     /**
@@ -327,6 +330,24 @@ public final class ElectricNetwork {
         return collect(level, start, new HashSet<>());
     }
 
+    /** Network a machine is wired to (through any cable piece touching it), or null when it has none. */
+    public static @Nullable Analysis analyzeMachine(BlockGetter level, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            BlockPos p = pos.relative(direction);
+            BlockState state = level.getBlockState(p);
+            if (state.getBlock() instanceof CableBlock cable && !cable.isBundled()) {
+                for (Direction face : Direction.values()) {
+                    if (cable.hasFace(state, face)) {
+                        return collect(level, new Node(p.immutable(), face), new HashSet<>());
+                    }
+                }
+            } else if (state.getBlock() instanceof StandBlock stand && !stand.cableType().isBundled()) {
+                return collect(level, new Node(p.immutable(), Direction.DOWN, -1), new HashSet<>());
+            }
+        }
+        return null;
+    }
+
     private static Analysis collect(BlockGetter level, Node start, Set<Node> visited) {
         Set<Node> pieces = new LinkedHashSet<>();
         Set<BlockPos> sources = new LinkedHashSet<>();
@@ -334,6 +355,7 @@ public final class ElectricNetwork {
         Set<BlockPos> closedSwitches = new LinkedHashSet<>();
         Set<BlockPos> openSwitches = new LinkedHashSet<>();
         Set<BlockPos> speakers = new LinkedHashSet<>();
+        Set<BlockPos> machines = new LinkedHashSet<>();
 
         Deque<Node> queue = new ArrayDeque<>();
         queue.add(start);
@@ -376,6 +398,10 @@ public final class ElectricNetwork {
 
                 if (device instanceof VoltageSourceBlock) {
                     if (sources.add(devicePos)) {
+                        addPiecesTouching(level, devicePos, EnumSet.allOf(Direction.class), null, null, queue, visited);
+                    }
+                } else if (device instanceof ElectricMachineBlock) {
+                    if (machines.add(devicePos)) {
                         addPiecesTouching(level, devicePos, EnumSet.allOf(Direction.class), null, null, queue, visited);
                     }
                 } else if (device instanceof SpeakerBlock) {
@@ -434,6 +460,23 @@ public final class ElectricNetwork {
             }
         }
 
+        // Machines: generators / converters force a voltage, accumulators set one when nothing else does.
+        double machineFixed = 0.0D;
+        double machineStore = 0.0D;
+        double machineCurrent = 0.0D;
+        for (BlockPos machinePos : machines) {
+            if (level.getBlockEntity(machinePos) instanceof ElectricMachineBlockEntity machine) {
+                machineFixed = Math.max(machineFixed, machine.fixedSourceVoltage());
+                machineStore = Math.max(machineStore, machine.storageVoltage());
+                machineCurrent += machine.loadCurrent();
+            }
+        }
+        if (machineFixed > Math.abs(voltage)) {
+            voltage = machineFixed;
+        } else if (voltage == 0.0D) {
+            voltage = machineStore;
+        }
+
         // Current drawn by bulbs that survive this voltage.
         double current = 0.0D;
         for (BlockPos loadPos : loads) {
@@ -443,7 +486,7 @@ public final class ElectricNetwork {
                 current += Math.abs(voltage) / BulbItem.resistanceOf(holder.getBulb());
             }
         }
-        return new Analysis(pieces, sources, loads, closedSwitches, openSwitches, voltage, current, speakers);
+        return new Analysis(pieces, sources, loads, closedSwitches, openSwitches, voltage, current, speakers, machines, machineCurrent);
     }
 
     private static void discoverLoad(BlockGetter level, BlockPos loadPos, Set<BlockPos> sources,
@@ -474,8 +517,8 @@ public final class ElectricNetwork {
         Analysis analysis = collect(level, start, visited);
         double voltage = analysis.voltage();
 
-        // Bulbs of every load in the network.
-        double totalCurrent = 0.0D;
+        // Bulbs of every load in the network, plus the machines' own draw.
+        double totalCurrent = analysis.machineCurrent();
         for (BlockPos loadPos : analysis.loads()) {
             totalCurrent += applyToLoad(level, loadPos, voltage);
         }

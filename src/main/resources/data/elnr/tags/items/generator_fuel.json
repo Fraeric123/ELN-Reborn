@@ -1,0 +1,69 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:logs_that_burn",
+      "required": false
+    },
+    {
+      "id": "#minecraft:planks",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_slabs",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_stairs",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_fences",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_doors",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_trapdoors",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_buttons",
+      "required": false
+    },
+    {
+      "id": "#minecraft:wooden_pressure_plates",
+      "required": false
+    },
+    {
+      "id": "#minecraft:saplings",
+      "required": false
+    },
+    {
+      "id": "#minecraft:boats",
+      "required": false
+    },
+    {
+      "id": "#forge:rods/wooden",
+      "required": false
+    },
+    {
+      "id": "#forge:chests/wooden",
+      "required": false
+    },
+    {
+      "id": "#forge:barrels/wooden",
+      "required": false
+    },
+    {
+      "id": "#forge:fence_gates/wooden",
+      "required": false
+    },
+    "minecraft:stick",
+    "minecraft:bowl",
+    "minecraft:crafting_table",
+    "minecraft:ladder"
+  ]
+}

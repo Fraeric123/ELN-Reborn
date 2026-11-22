@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "elnr:block/electric_miner_v"
+    },
+    "facing=down": {
+      "model": "elnr:block/electric_miner_v",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "elnr:block/electric_miner_h"
+    },
+    "facing=east": {
+      "model": "elnr:block/electric_miner_h",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elnr:block/electric_miner_h",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elnr:block/electric_miner_h",
+      "y": 270
+    }
+  }
+}

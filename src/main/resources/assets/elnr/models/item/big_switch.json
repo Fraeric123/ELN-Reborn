@@ -1,3 +1,1 @@
-{
-  "parent": "elnr:block/big_switch_a"
-}
+{"parent": "minecraft:item/generated", "textures": {"layer0": "elnr:item/big_switch"}}

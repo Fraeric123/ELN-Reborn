@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "charge=0": {
+      "model": "elnr:block/battery_200v_c0"
+    },
+    "charge=1": {
+      "model": "elnr:block/battery_200v_c1"
+    },
+    "charge=2": {
+      "model": "elnr:block/battery_200v_c2"
+    },
+    "charge=3": {
+      "model": "elnr:block/battery_200v_c3"
+    },
+    "charge=4": {
+      "model": "elnr:block/battery_200v_c4"
+    }
+  }
+}

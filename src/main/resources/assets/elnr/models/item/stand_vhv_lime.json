@@ -1,3 +1,1 @@
-{
-  "parent": "elnr:block/stand_vhv"
-}
+{"parent": "minecraft:item/generated", "textures": {"layer0": "elnr:item/stand_vhv_lime"}}

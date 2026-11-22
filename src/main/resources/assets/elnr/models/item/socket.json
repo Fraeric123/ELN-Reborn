@@ -1,1 +1,1 @@
-{ "parent": "elnr:block/socket" }
+{"parent": "minecraft:item/generated", "textures": {"layer0": "elnr:item/socket"}}

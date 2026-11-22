@@ -247,7 +247,7 @@ public class CableBlock extends Block implements EntityBlock {
     private static float deviceReach(BlockGetter level, BlockPos devicePos, BlockState device,
                                      CableBlock cable, Direction face) {
         Block block = device.getBlock();
-        if (block instanceof VoltageSourceBlock) {
+        if (block instanceof VoltageSourceBlock || block instanceof net.fraeric.elnr.common.machine.ElectricMachineBlock) {
             return DEVICE_REACH_BODY;
         }
         if (block instanceof StandBlock stand) {

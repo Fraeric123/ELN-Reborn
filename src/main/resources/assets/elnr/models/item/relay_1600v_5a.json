@@ -1,1 +1,1 @@
-{"parent": "elnr:block/relay_item_3"}
+{"parent": "minecraft:item/generated", "textures": {"layer0": "elnr:item/relay_1600v_5a"}}

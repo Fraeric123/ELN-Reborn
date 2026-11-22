@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "elnr:block/capacitor_200v_c4"
+  }
+}

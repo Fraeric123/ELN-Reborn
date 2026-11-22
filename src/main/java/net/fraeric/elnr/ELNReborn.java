@@ -43,6 +43,7 @@ public class ELNReborn
         ModItems.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
+        net.fraeric.elnr.registry.ModMachines.init();
         ModMenus.register(modEventBus);
         ModSounds.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
@@ -77,6 +78,12 @@ public class ELNReborn
                         ModMenus.TIMER.get(), TimerScreen::new);
                 net.minecraft.client.gui.screens.MenuScreens.register(
                         ModMenus.RELAY.get(), net.fraeric.elnr.client.RelayScreen::new);
+                net.minecraft.client.gui.screens.MenuScreens.register(
+                        net.fraeric.elnr.registry.ModMachines.GENERATOR_MENU.get(), net.fraeric.elnr.client.PanelScreen::new);
+                net.minecraft.client.gui.screens.MenuScreens.register(
+                        net.fraeric.elnr.registry.ModMachines.FE_MENU.get(), net.fraeric.elnr.client.PanelScreen::new);
+                net.minecraft.client.gui.screens.MenuScreens.register(
+                        net.fraeric.elnr.registry.ModMachines.FURNACE_MENU.get(), net.fraeric.elnr.client.FurnaceScreen::new);
             });
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
