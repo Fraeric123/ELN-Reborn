@@ -1,0 +1,108 @@
+{
+  "variants": {
+    "bulb=false,facing=up,lit=false": {
+      "model": "elnr:block/socket_empty"
+    },
+    "bulb=false,facing=up,lit=true": {
+      "model": "elnr:block/socket_empty"
+    },
+    "bulb=true,facing=up,lit=false": {
+      "model": "elnr:block/socket"
+    },
+    "bulb=true,facing=up,lit=true": {
+      "model": "elnr:block/socket_lit"
+    },
+    "bulb=false,facing=down,lit=false": {
+      "model": "elnr:block/socket_empty",
+      "x": 180
+    },
+    "bulb=false,facing=down,lit=true": {
+      "model": "elnr:block/socket_empty",
+      "x": 180
+    },
+    "bulb=true,facing=down,lit=false": {
+      "model": "elnr:block/socket",
+      "x": 180
+    },
+    "bulb=true,facing=down,lit=true": {
+      "model": "elnr:block/socket_lit",
+      "x": 180
+    },
+    "bulb=false,facing=north,lit=false": {
+      "model": "elnr:block/socket_empty",
+      "x": 90
+    },
+    "bulb=false,facing=north,lit=true": {
+      "model": "elnr:block/socket_empty",
+      "x": 90
+    },
+    "bulb=true,facing=north,lit=false": {
+      "model": "elnr:block/socket",
+      "x": 90
+    },
+    "bulb=true,facing=north,lit=true": {
+      "model": "elnr:block/socket_lit",
+      "x": 90
+    },
+    "bulb=false,facing=east,lit=false": {
+      "model": "elnr:block/socket_empty",
+      "x": 90,
+      "y": 90
+    },
+    "bulb=false,facing=east,lit=true": {
+      "model": "elnr:block/socket_empty",
+      "x": 90,
+      "y": 90
+    },
+    "bulb=true,facing=east,lit=false": {
+      "model": "elnr:block/socket",
+      "x": 90,
+      "y": 90
+    },
+    "bulb=true,facing=east,lit=true": {
+      "model": "elnr:block/socket_lit",
+      "x": 90,
+      "y": 90
+    },
+    "bulb=false,facing=south,lit=false": {
+      "model": "elnr:block/socket_empty",
+      "x": 90,
+      "y": 180
+    },
+    "bulb=false,facing=south,lit=true": {
+      "model": "elnr:block/socket_empty",
+      "x": 90,
+      "y": 180
+    },
+    "bulb=true,facing=south,lit=false": {
+      "model": "elnr:block/socket",
+      "x": 90,
+      "y": 180
+    },
+    "bulb=true,facing=south,lit=true": {
+      "model": "elnr:block/socket_lit",
+      "x": 90,
+      "y": 180
+    },
+    "bulb=false,facing=west,lit=false": {
+      "model": "elnr:block/socket_empty",
+      "x": 90,
+      "y": 270
+    },
+    "bulb=false,facing=west,lit=true": {
+      "model": "elnr:block/socket_empty",
+      "x": 90,
+      "y": 270
+    },
+    "bulb=true,facing=west,lit=false": {
+      "model": "elnr:block/socket",
+      "x": 90,
+      "y": 270
+    },
+    "bulb=true,facing=west,lit=true": {
+      "model": "elnr:block/socket_lit",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{ "type": "minecraft:crafting_shapeless", "ingredients": [ { "item": "elnr:cable_hv" }, { "item": "elnr:cable_hv" }, { "item": "minecraft:diamond" } ], "result": { "item": "elnr:cable_vhv", "count": 4 } }

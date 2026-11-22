@@ -1,0 +1,128 @@
+{
+  "alarm_critical": {
+    "sounds": [
+      {
+        "name": "elnr:alarm_critical",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "bellring_01": {
+    "sounds": [
+      {
+        "name": "elnr:bellring_01",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "bellring_02": {
+    "sounds": [
+      {
+        "name": "elnr:bellring_02",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "bellring_03": {
+    "sounds": [
+      {
+        "name": "elnr:bellring_03",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "clockbellfullhour": {
+    "sounds": [
+      {
+        "name": "elnr:clockbellfullhour",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorbell_01": {
+    "sounds": [
+      {
+        "name": "elnr:doorbell_01",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorbell_02": {
+    "sounds": [
+      {
+        "name": "elnr:doorbell_02",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorbell_03": {
+    "sounds": [
+      {
+        "name": "elnr:doorbell_03",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorbell_04": {
+    "sounds": [
+      {
+        "name": "elnr:doorbell_04",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorbell_05": {
+    "sounds": [
+      {
+        "name": "elnr:doorbell_05",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorphonecalling_01": {
+    "sounds": [
+      {
+        "name": "elnr:doorphonecalling_01",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "doorphonecalling_02": {
+    "sounds": [
+      {
+        "name": "elnr:doorphonecalling_02",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "schoolbellringing": {
+    "sounds": [
+      {
+        "name": "elnr:schoolbellringing",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "siren": {
+    "sounds": [
+      {
+        "name": "elnr:siren",
+        "stream": true,
+        "attenuation_distance": 16
+      }
+    ]
+  }
+}

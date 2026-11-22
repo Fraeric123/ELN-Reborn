@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "elnr:block/stand_vhv"
+    },
+    "facing=down": {
+      "model": "elnr:block/stand_vhv",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "elnr:block/stand_vhv",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "elnr:block/stand_vhv",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "elnr:block/stand_vhv",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "elnr:block/stand_vhv",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

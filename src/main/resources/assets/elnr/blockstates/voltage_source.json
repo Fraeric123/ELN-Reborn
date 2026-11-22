@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "active=false,facing=up": {
+      "model": "elnr:block/voltage_source_off"
+    },
+    "active=true,facing=up": {
+      "model": "elnr:block/voltage_source_on"
+    },
+    "active=false,facing=down": {
+      "model": "elnr:block/voltage_source_off",
+      "x": 180
+    },
+    "active=true,facing=down": {
+      "model": "elnr:block/voltage_source_on",
+      "x": 180
+    },
+    "active=false,facing=north": {
+      "model": "elnr:block/voltage_source_off",
+      "x": 90
+    },
+    "active=true,facing=north": {
+      "model": "elnr:block/voltage_source_on",
+      "x": 90
+    },
+    "active=false,facing=east": {
+      "model": "elnr:block/voltage_source_off",
+      "x": 90,
+      "y": 90
+    },
+    "active=true,facing=east": {
+      "model": "elnr:block/voltage_source_on",
+      "x": 90,
+      "y": 90
+    },
+    "active=false,facing=south": {
+      "model": "elnr:block/voltage_source_off",
+      "x": 90,
+      "y": 180
+    },
+    "active=true,facing=south": {
+      "model": "elnr:block/voltage_source_on",
+      "x": 90,
+      "y": 180
+    },
+    "active=false,facing=west": {
+      "model": "elnr:block/voltage_source_off",
+      "x": 90,
+      "y": 270
+    },
+    "active=true,facing=west": {
+      "model": "elnr:block/voltage_source_on",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

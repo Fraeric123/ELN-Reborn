@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "elnr:street_lamp",
+          "conditions": [
+            { "condition": "minecraft:block_state_property", "block": "elnr:street_lamp", "properties": { "part": "lower" } },
+            { "condition": "minecraft:survives_explosion" }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "elnr:street_lamp",
+          "conditions": [
+            { "condition": "minecraft:block_state_property", "block": "elnr:street_lamp", "properties": { "part": "middle" } },
+            { "condition": "minecraft:survives_explosion" }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "elnr:street_lamp",
+          "conditions": [
+            { "condition": "minecraft:block_state_property", "block": "elnr:street_lamp", "properties": { "part": "head" } },
+            { "condition": "minecraft:survives_explosion" }
+          ]
+        }
+      ]
+    }
+  ]
+}

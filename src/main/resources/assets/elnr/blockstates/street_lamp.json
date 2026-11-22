@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "lit=false,part=lower": {
+      "model": "elnr:block/street_lamp_lower"
+    },
+    "lit=false,part=middle": {
+      "model": "elnr:block/street_lamp_middle"
+    },
+    "lit=false,part=head": {
+      "model": "elnr:block/street_lamp_head"
+    },
+    "lit=true,part=lower": {
+      "model": "elnr:block/street_lamp_lower"
+    },
+    "lit=true,part=middle": {
+      "model": "elnr:block/street_lamp_middle"
+    },
+    "lit=true,part=head": {
+      "model": "elnr:block/street_lamp_head_lit"
+    }
+  }
+}

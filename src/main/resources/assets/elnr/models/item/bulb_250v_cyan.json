@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "elnr:item/bulb_250v_cyan"
+  }
+}

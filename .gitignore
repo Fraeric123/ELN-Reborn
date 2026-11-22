@@ -1,0 +1,43 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Forge / Minecraft dev run
+run/
+run-data/
+runs/
+logs/
+crash-reports/
+*.log
+src/generated/.cache/
+
+ElectricalAge-main/
+
+# javac argument files
+*.args
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+eclipse/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local / secrets
+local.properties
+*.env

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [ "III", "IGI", " I " ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "G": { "item": "minecraft:glass" }
+  },
+  "result": { "item": "elnr:street_lamp", "count": 1 }
+}

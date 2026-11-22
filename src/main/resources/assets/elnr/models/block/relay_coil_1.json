@@ -1,0 +1,73 @@
+{
+  "textures": {
+    "particle": "minecraft:block/yellow_concrete",
+    "can": "minecraft:block/yellow_concrete",
+    "cap": "minecraft:block/iron_block"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        3.5,
+        5
+      ],
+      "to": [
+        11,
+        9,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#can"
+        },
+        "up": {
+          "texture": "#can"
+        },
+        "north": {
+          "texture": "#can"
+        },
+        "south": {
+          "texture": "#can"
+        },
+        "west": {
+          "texture": "#can"
+        },
+        "east": {
+          "texture": "#can"
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        9,
+        5.5
+      ],
+      "to": [
+        10.5,
+        9.5,
+        10.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#cap"
+        },
+        "up": {
+          "texture": "#cap"
+        },
+        "north": {
+          "texture": "#cap"
+        },
+        "south": {
+          "texture": "#cap"
+        },
+        "west": {
+          "texture": "#cap"
+        },
+        "east": {
+          "texture": "#cap"
+        }
+      }
+    }
+  ]
+}
