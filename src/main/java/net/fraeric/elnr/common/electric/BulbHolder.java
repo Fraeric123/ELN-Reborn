@@ -14,6 +14,24 @@ import net.minecraft.world.level.Level;
  */
 public interface BulbHolder {
 
+    /** Number of bulb positions (1 for a socket or street lamp, 6 for the chandelier). */
+    default int bulbCount() {
+        return 1;
+    }
+
+    default ItemStack bulbAt(int index) {
+        return getBulb();
+    }
+
+    default void setBulbAt(int index, ItemStack stack) {
+        setBulb(stack);
+    }
+
+    /** Where sound and particles of a failing bulb appear. */
+    default BlockPos effectPos(BlockPos pos) {
+        return pos;
+    }
+
     boolean hasBulb();
 
     ItemStack getBulb();

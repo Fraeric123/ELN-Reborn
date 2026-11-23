@@ -134,6 +134,13 @@
     "west": {
      "texture": "#glass"
     }
+   },
+   "light_emission": 15,
+   "shade": false,
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
    }
   },
   {

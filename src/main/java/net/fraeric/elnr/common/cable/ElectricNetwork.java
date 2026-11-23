@@ -501,9 +501,14 @@ public final class ElectricNetwork {
         double current = 0.0D;
         for (BlockPos loadPos : loads) {
             BulbHolder holder = loadAt(level, loadPos);
-            if (holder != null && holder.hasBulb() && Math.abs(voltage) > 0
-                    && Math.abs(voltage) <= burnVoltage(holder)) {
-                current += Math.abs(voltage) / BulbItem.resistanceOf(holder.getBulb());
+            if (holder == null || Math.abs(voltage) <= 0) {
+                continue;
+            }
+            for (int i = 0; i < holder.bulbCount(); i++) {
+                net.minecraft.world.item.ItemStack bulb = holder.bulbAt(i);
+                if (bulb.getItem() instanceof BulbItem && Math.abs(voltage) <= burnVoltage(bulb)) {
+                    current += Math.abs(voltage) / BulbItem.resistanceOf(bulb);
+                }
             }
         }
         return new Analysis(pieces, sources, loads, closedSwitches, openSwitches, voltage, current, speakers, machines, machineCurrent);
@@ -687,18 +692,47 @@ public final class ElectricNetwork {
         if (holder == null) {
             return 0.0D;
         }
-        boolean hasBulb = holder.hasBulb();
-        boolean lit = hasBulb && Math.abs(voltage) >= 0.5D * BulbItem.voltageOf(holder.getBulb());
-
-        if (hasBulb && Math.abs(voltage) > burnVoltage(holder)) {
-            holder.breakBulb(level, loadPos);
-            lit = false;
+        double abs = Math.abs(voltage);
+        boolean lit = false;
+        double current = 0.0D;
+        for (int i = 0; i < holder.bulbCount(); i++) {
+            net.minecraft.world.item.ItemStack bulb = holder.bulbAt(i);
+            if (!(bulb.getItem() instanceof BulbItem)) {
+                continue; // empty, burnt or cracked: nothing glows, nothing draws current
+            }
+            double rated = BulbItem.voltageOf(bulb);
+            if (abs > rated * BULB_CRACK_FACTOR) {
+                failBulb(level, loadPos, holder, i, true);
+            } else if (abs > burnVoltage(bulb)) {
+                failBulb(level, loadPos, holder, i, false);
+            } else if (abs > 0) {
+                current += abs / BulbItem.resistanceOf(bulb);
+                lit |= abs >= 0.5D * rated;
+            }
         }
-
         setLoadLit(level, loadPos, lit);
+        return current;
+    }
 
-        boolean survives = Math.abs(voltage) > 0 && hasBulb && Math.abs(voltage) <= burnVoltage(holder);
-        return survives ? Math.abs(voltage) / BulbItem.resistanceOf(holder.getBulb()) : 0.0D;
+    /** A bulb cracks above this multiple of its rated voltage (between 1.3x and this it only burns out). */
+    public static final double BULB_CRACK_FACTOR = 2.0D;
+
+    /** The failed bulb stays in the holder as a burnt-out or cracked bulb. */
+    private static void failBulb(Level level, BlockPos loadPos, BulbHolder holder, int index, boolean cracked) {
+        holder.setBulbAt(index, new net.minecraft.world.item.ItemStack(cracked
+                ? net.fraeric.elnr.registry.ModItems.CRACKED_BULB.get() : net.fraeric.elnr.registry.ModItems.BURNT_BULB.get()));
+        BlockPos at = holder.effectPos(loadPos);
+        level.playSound(null, at, cracked ? net.minecraft.sounds.SoundEvents.GLASS_BREAK
+                : net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH, net.minecraft.sounds.SoundSource.BLOCKS, 0.8F, cracked ? 1.0F : 1.4F);
+        if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            serverLevel.sendParticles(cracked ? net.minecraft.core.particles.ParticleTypes.CRIT
+                            : net.minecraft.core.particles.ParticleTypes.SMOKE,
+                    at.getX() + 0.5D, at.getY() + 0.6D, at.getZ() + 0.5D, 10, 0.25D, 0.25D, 0.25D, 0.03D);
+        }
+    }
+
+    public static double burnVoltage(net.minecraft.world.item.ItemStack bulb) {
+        return BulbItem.voltageOf(bulb) * CableTier.VOLTAGE_TOLERANCE;
     }
 
     /** A bulb is destroyed above 1.3x its rated voltage. */

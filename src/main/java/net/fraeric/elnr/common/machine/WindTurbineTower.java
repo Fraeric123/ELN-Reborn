@@ -114,6 +114,9 @@ public final class WindTurbineTower {
     /** Every block that belongs to the same tower as {@code pos} (just {@code pos} for other blocks). */
     public static List<BlockPos> members(BlockGetter level, BlockPos pos) {
         Block b = level.getBlockState(pos).getBlock();
+        if (b instanceof TubeLightBlock) {
+            return TubeLightBlock.group(level, pos);
+        }
         if (!(b instanceof WindTurbinePoleBlock) && !(b instanceof WindTurbineBlock)) {
             return List.of(pos);
         }

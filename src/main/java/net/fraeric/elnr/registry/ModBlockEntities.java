@@ -49,7 +49,7 @@ public class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<StreetLampBlockEntity>> STREET_LAMP =
             BLOCK_ENTITIES.register("street_lamp",
-                    () -> BlockEntityType.Builder.of(StreetLampBlockEntity::new, ModBlocks.STREET_LAMP.get()).build(null));
+                    () -> BlockEntityType.Builder.of(StreetLampBlockEntity::new, ModBlocks.STREET_LAMP.get(), ModBlocks.WALL_STREET_LAMP.get(), ModBlocks.CHANDELIER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SpeakerBlockEntity>> SPEAKER =
             BLOCK_ENTITIES.register("speaker",

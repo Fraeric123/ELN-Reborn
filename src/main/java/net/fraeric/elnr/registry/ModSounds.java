@@ -43,6 +43,11 @@ public final class ModSounds {
     public static final net.minecraftforge.registries.RegistryObject<SoundEvent> WIND_FAST = SOUNDS.register(
             "windturbine_big_ff", () -> SoundEvent.createVariableRangeEvent(id("windturbine_big_ff")));
 
+    public static final net.minecraftforge.registries.RegistryObject<SoundEvent> NEON_FLICKER = SOUNDS.register(
+            "neon_lamp_flicker", () -> SoundEvent.createVariableRangeEvent(id("neon_lamp_flicker")));
+    public static final net.minecraftforge.registries.RegistryObject<SoundEvent> NEON_START = SOUNDS.register(
+            "neon_lamp_start_noise", () -> SoundEvent.createVariableRangeEvent(id("neon_lamp_start_noise")));
+
     public static ResourceLocation id(String name) {
         return new ResourceLocation(ELNReborn.MODID, name);
     }

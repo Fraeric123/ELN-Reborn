@@ -1,0 +1,22 @@
+{
+ "variants": {
+  "lit=false,part=lower": {
+   "model": "elnr:block/chandelier"
+  },
+  "lit=true,part=lower": {
+   "model": "elnr:block/chandelier_lit"
+  },
+  "lit=false,part=middle": {
+   "model": "elnr:block/chandelier"
+  },
+  "lit=true,part=middle": {
+   "model": "elnr:block/chandelier_lit"
+  },
+  "lit=false,part=head": {
+   "model": "elnr:block/chandelier"
+  },
+  "lit=true,part=head": {
+   "model": "elnr:block/chandelier_lit"
+  }
+ }
+}

@@ -51,6 +51,9 @@ public class BulbItem extends Item {
     }
 
     public static int tintOf(ItemStack stack) {
+        if (stack.getItem() instanceof BrokenBulbItem broken) {
+            return broken.getTint();
+        }
         return stack.getItem() instanceof BulbItem bulb ? bulb.getTint() : 0xFFFFFF;
     }
 

@@ -112,6 +112,13 @@ public class StreetLampBlock extends Block implements EntityBlock {
     }
 
     public static void setHeadLit(Level level, BlockPos basePos, boolean lit) {
+        BlockState baseState = level.getBlockState(basePos);
+        if ((baseState.getBlock() instanceof WallStreetLampBlock || baseState.getBlock() instanceof ChandelierBlock)) {
+            if (baseState.getValue(LIT) != lit) {
+                level.setBlock(basePos, baseState.setValue(LIT, lit), Block.UPDATE_ALL);
+            }
+            return;
+        }
         BlockPos headPos = basePos.above(2);
         BlockState head = level.getBlockState(headPos);
         if (head.getBlock() instanceof StreetLampBlock
@@ -122,6 +129,10 @@ public class StreetLampBlock extends Block implements EntityBlock {
     }
 
     public static boolean isHeadLit(BlockGetter level, BlockPos basePos) {
+        BlockState baseState = level.getBlockState(basePos);
+        if ((baseState.getBlock() instanceof WallStreetLampBlock || baseState.getBlock() instanceof ChandelierBlock)) {
+            return baseState.getValue(LIT);
+        }
         BlockState head = level.getBlockState(basePos.above(2));
         return head.getBlock() instanceof StreetLampBlock
                 && head.getValue(PART) == Part.HEAD
@@ -182,7 +193,7 @@ public class StreetLampBlock extends Block implements EntityBlock {
     @Override
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         super.playerWillDestroy(level, pos, state, player);
-        if (level.isClientSide) {
+        if (level.isClientSide || this instanceof WallStreetLampBlock || this instanceof ChandelierBlock) {
             return;
         }
         // Breaking any part takes the whole lamp down (the clicked part itself drops

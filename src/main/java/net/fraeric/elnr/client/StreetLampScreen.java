@@ -32,8 +32,13 @@ public class StreetLampScreen extends AbstractContainerScreen<StreetLampMenu> {
     @Override
     protected void renderLabels(GuiGraphics g, int mouseX, int mouseY) {
         g.drawString(font, title, 8, 6, 0x404040, false);
-        g.drawString(font, Component.translatable("gui.elnr.street_lamp.bulb"), StreetLampMenu.BULB_X - 6, 22, 0x404040, false);
-        g.drawString(font, Component.translatable("gui.elnr.street_lamp.cable"), StreetLampMenu.CABLE_X - 6, 22, 0x404040, false);
+        if (menu.isChandelier()) {
+            g.drawString(font, Component.translatable("gui.elnr.chandelier.bulbs"), 26, 19, 0x404040, false);
+            g.drawString(font, Component.translatable("gui.elnr.street_lamp.cable"), 80, 45, 0x404040, false);
+        } else {
+            g.drawString(font, Component.translatable("gui.elnr.street_lamp.bulb"), StreetLampMenu.BULB_X - 6, 22, 0x404040, false);
+            g.drawString(font, Component.translatable("gui.elnr.street_lamp.cable"), StreetLampMenu.CABLE_X - 6, 22, 0x404040, false);
+        }
         g.drawString(font, playerInventoryTitle, 8, inventoryLabelY, 0x404040, false);
     }
 

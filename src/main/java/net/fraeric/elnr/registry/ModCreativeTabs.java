@@ -103,6 +103,11 @@ public class ModCreativeTabs {
                 ModItems.BULBS.forEach(bulb -> output.accept(bulb.get()));
                 output.accept(ModBlocks.SOCKET.get());
                 output.accept(ModBlocks.STREET_LAMP.get());
+                output.accept(ModBlocks.WALL_STREET_LAMP.get());
+                output.accept(ModBlocks.CHANDELIER.get());
+                output.accept(ModItems.BURNT_BULB.get());
+                output.accept(ModItems.CRACKED_BULB.get());
+                ModMachines.TUBE_LIGHT_ITEMS.forEach(item -> output.accept(item.get()));
                 output.accept(ModBlocks.DOORBELL.get());
                 output.accept(ModBlocks.BELL.get());
                 output.accept(ModBlocks.SCHOOL_BELL.get());

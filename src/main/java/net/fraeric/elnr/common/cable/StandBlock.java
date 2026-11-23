@@ -102,6 +102,16 @@ public class StandBlock extends Block implements EntityBlock {
         return cableType;
     }
 
+    /** The overhead line item that was used to hang a line on this stand (what cutting the line gives back). */
+    public ItemStack overheadLineStack() {
+        for (var reg : net.fraeric.elnr.registry.ModItems.OVERHEAD_LINES) {
+            if (reg.get() instanceof OverheadLineItem line && line.getTier() == tier && line.isBundled() == bundled) {
+                return new ItemStack(line);
+            }
+        }
+        return new ItemStack(cableType().asItem());
+    }
+
     /** @return the longest overhead line this stand can span, in blocks. */
     public double getMaxSpan() {
         return tier.getMaxSpan();
@@ -302,7 +312,7 @@ public class StandBlock extends Block implements EntityBlock {
                 if (level.hasChunkAt(other) && level.getBlockEntity(other) instanceof StandBlockEntity partner) {
                     partner.removeLink(pos);
                 }
-                popResource(level, pos, new ItemStack(cableType().asItem()));
+                popResource(level, pos, overheadLineStack());
                 level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.5F, 1.0F);
                 player.displayClientMessage(Component.translatable("message.elnr.stand.removed"), true);
                 ElectricNetwork.updateAt(level, pos);
@@ -397,7 +407,7 @@ public class StandBlock extends Block implements EntityBlock {
                 if (level.hasChunkAt(other) && level.getBlockEntity(other) instanceof StandBlockEntity partner) {
                     partner.removeLink(pos);
                 }
-                popResource(level, pos, new ItemStack(cableType().asItem()));
+                popResource(level, pos, overheadLineStack());
             }
             super.onRemove(state, level, pos, newState, isMoving);
             for (BlockPos other : others) {

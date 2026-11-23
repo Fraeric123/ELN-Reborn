@@ -27,6 +27,11 @@ public class StreetLampMenu extends AbstractContainerMenu {
     @Nullable
     private final StreetLampBlockEntity entity;
     private final ContainerListener listener;
+    private final boolean chandelier;
+
+    public boolean isChandelier() {
+        return chandelier;
+    }
 
     /** Server side. */
     public StreetLampMenu(int id, Inventory inventory, StreetLampBlockEntity entity) {
@@ -43,6 +48,7 @@ public class StreetLampMenu extends AbstractContainerMenu {
         if (container instanceof SimpleContainer simple) {
             simple.addListener(listener);
         }
+        this.chandelier = entity.getBlockState().getBlock() instanceof ChandelierBlock;
         init(inventory);
     }
 
@@ -51,24 +57,30 @@ public class StreetLampMenu extends AbstractContainerMenu {
         super(ModMenus.STREET_LAMP.get(), id);
         this.entity = null;
         this.pos = pos;
-        this.container = new SimpleContainer(2);
+        this.container = new SimpleContainer(StreetLampBlockEntity.SLOTS);
         this.listener = null;
+        this.chandelier = inventory.player.level().getBlockState(pos).getBlock() instanceof ChandelierBlock;
         init(inventory);
     }
 
     private void init(Inventory inventory) {
-        addSlot(new Slot(container, StreetLampBlockEntity.BULB_SLOT, BULB_X, SLOT_Y) {
-            @Override
-            public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof BulbItem;
-            }
+        int bulbSlots = chandelier ? StreetLampBlockEntity.BULB_SLOTS.length : 1;
+        for (int i = 0; i < bulbSlots; i++) {
+            int x = chandelier ? 26 + i * 20 : BULB_X;
+            int y = chandelier ? 30 : SLOT_Y;
+            addSlot(new Slot(container, StreetLampBlockEntity.BULB_SLOTS[i], x, y) {
+                @Override
+                public boolean mayPlace(ItemStack stack) {
+                    return stack.getItem() instanceof BulbItem;
+                }
 
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        });
-        addSlot(new Slot(container, StreetLampBlockEntity.CABLE_SLOT, CABLE_X, SLOT_Y) {
+                @Override
+                public int getMaxStackSize() {
+                    return 1;
+                }
+            });
+        }
+        addSlot(new Slot(container, StreetLampBlockEntity.CABLE_SLOT, chandelier ? 80 : CABLE_X, chandelier ? 56 : SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof CableItem;
@@ -101,16 +113,17 @@ public class StreetLampMenu extends AbstractContainerMenu {
         }
         ItemStack stack = slot.getItem();
         ItemStack copy = stack.copy();
-        if (index < 2) {
-            if (!moveItemStackTo(stack, 2, slots.size(), true)) {
+        int machine = (chandelier ? StreetLampBlockEntity.BULB_SLOTS.length : 1) + 1;
+        if (index < machine) {
+            if (!moveItemStackTo(stack, machine, slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
         } else if (stack.getItem() instanceof BulbItem) {
-            if (!moveItemStackTo(stack, 0, 1, false)) {
+            if (!moveItemStackTo(stack, 0, machine - 1, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (stack.getItem() instanceof CableItem) {
-            if (!moveItemStackTo(stack, 1, 2, false)) {
+            if (!moveItemStackTo(stack, machine - 1, machine, false)) {
                 return ItemStack.EMPTY;
             }
         } else {

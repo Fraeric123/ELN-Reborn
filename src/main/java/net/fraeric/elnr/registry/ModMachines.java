@@ -83,6 +83,41 @@ public final class ModMachines {
             () -> new net.fraeric.elnr.common.item.TooltipBlockItem(FE_CONVERTER.get(), new Item.Properties(),
                     "tooltip.elnr.fe.1", "tooltip.elnr.fe.2"));
 
+    /** Fluorescent lamps (220 V) and neon strips (24 / 50 / 220 V) in three thicknesses; one item per colour. */
+    public static final List<RegistryObject<Block>> TUBE_LIGHTS = new ArrayList<>();
+    public static final List<RegistryObject<Item>> TUBE_LIGHT_ITEMS = new ArrayList<>();
+    public static final double[] NEON_VOLTAGES = {24.0D, 50.0D, 220.0D};
+    public static final double[] NEON_WATTS = {3.0D, 5.0D, 10.0D};
+    public static final String[] THICKNESS_IDS = {"thin", "medium", "thick"};
+
+    static {
+        for (int t = 0; t < 3; t++) {
+            registerTube("fluorescent_lamp_" + THICKNESS_IDS[t], TubeLightBlock.Kind.FLUORESCENT, 220.0D, 18.0D * (t + 1), t);
+        }
+        for (int v = 0; v < NEON_VOLTAGES.length; v++) {
+            for (int t = 0; t < 3; t++) {
+                registerTube("neon_strip_" + (int) NEON_VOLTAGES[v] + "v_" + THICKNESS_IDS[t],
+                        TubeLightBlock.Kind.NEON, NEON_VOLTAGES[v], NEON_WATTS[v] * (t + 1), t);
+            }
+        }
+    }
+
+    private static void registerTube(String id, TubeLightBlock.Kind kind, double voltage, double watts, int thickness) {
+        RegistryObject<Block> block = ModBlocks.BLOCKS.register(id, () -> new TubeLightBlock(
+                BlockBehaviour.Properties.of().strength(0.5F, 3.0F).sound(SoundType.GLASS),
+                kind, voltage, watts, thickness));
+        TUBE_LIGHTS.add(block);
+        for (int c = 0; c < net.fraeric.elnr.common.cable.CableColors.COUNT; c++) {
+            final int color = c;
+            TUBE_LIGHT_ITEMS.add(ModItems.ITEMS.register(id + "_" + net.fraeric.elnr.common.cable.CableColors.NAMES[c],
+                    () -> new TubeLightItem((TubeLightBlock) block.get(), color, new Item.Properties())));
+        }
+    }
+
+    public static final RegistryObject<BlockEntityType<TubeLightBlockEntity>> TUBE_LIGHT_BE =
+            ModBlockEntities.BLOCK_ENTITIES.register("tube_light", () -> BlockEntityType.Builder.of(TubeLightBlockEntity::new,
+                    TUBE_LIGHTS.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
+
     public static final RegistryObject<BlockEntityType<StorageBlockEntity>> STORAGE_BE =
             ModBlockEntities.BLOCK_ENTITIES.register("storage", () -> BlockEntityType.Builder.of(StorageBlockEntity::new,
                     java.util.stream.Stream.concat(CAPACITORS.stream(), BATTERIES.stream())

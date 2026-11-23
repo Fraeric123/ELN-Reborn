@@ -13,6 +13,8 @@ import net.fraeric.elnr.common.electric.SpeakerBlock;
 import net.fraeric.elnr.common.electric.SpeakerKind;
 import net.fraeric.elnr.common.electric.TimerBlock;
 import net.fraeric.elnr.common.electric.StreetLampBlock;
+import net.fraeric.elnr.common.electric.WallStreetLampBlock;
+import net.fraeric.elnr.common.electric.ChandelierBlock;
 import net.fraeric.elnr.common.electric.SwitchBlock;
 import net.fraeric.elnr.common.electric.VoltageSourceBlock;
 import net.minecraft.world.level.block.Block;
@@ -141,6 +143,16 @@ public class ModBlocks {
             registerBlock("street_lamp", () -> new StreetLampBlock(
                     BlockBehaviour.Properties.of().strength(3.0F, 8.0F).sound(SoundType.METAL).noOcclusion()),
                     "tooltip.elnr.street_lamp.1", "tooltip.elnr.street_lamp.2");
+
+    public static final RegistryObject<Block> WALL_STREET_LAMP =
+            registerBlock("wall_street_lamp", () -> new WallStreetLampBlock(
+                    BlockBehaviour.Properties.of().strength(3.0F, 8.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.wall_street_lamp.1", "tooltip.elnr.wall_street_lamp.2");
+
+    public static final RegistryObject<Block> CHANDELIER =
+            registerBlock("chandelier", () -> new ChandelierBlock(
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.chandelier.1", "tooltip.elnr.chandelier.2");
 
     private static RegistryObject<Block> registerSocket() {
         RegistryObject<Block> registered = BLOCKS.register("socket", () -> new SocketBlock(

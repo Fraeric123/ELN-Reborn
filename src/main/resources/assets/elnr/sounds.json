@@ -142,5 +142,23 @@
         "attenuation_distance": 32
       }
     ]
+  },
+  "neon_lamp_flicker": {
+    "sounds": [
+      {
+        "name": "elnr:neon_lamp_flicker",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "neon_lamp_start_noise": {
+    "sounds": [
+      {
+        "name": "elnr:neon_lamp_start_noise",
+        "stream": false,
+        "attenuation_distance": 16
+      }
+    ]
   }
 }

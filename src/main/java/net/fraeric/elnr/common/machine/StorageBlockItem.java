@@ -43,7 +43,7 @@ public class StorageBlockItem extends BlockItem {
         return storage().isBattery() ? 0x55FF55 : 0x55AAFF;
     }
 
-    private static String fmt(double joules) {
+    static String fmt(double joules) {
         if (joules >= 1.0E6D) {
             return String.format(Locale.ROOT, "%.2f MJ", joules / 1.0E6D);
         }

@@ -125,6 +125,12 @@ public class ELNReborn
         {
             event.register((stack, tintIndex) ->
                             stack.getItem() instanceof net.minecraft.world.item.BlockItem item
+                                    && item instanceof net.fraeric.elnr.common.machine.TubeLightItem tubeItem
+                                    ? tubeItem.getRgb() : 0xFFFFFF,
+                    net.fraeric.elnr.registry.ModMachines.TUBE_LIGHT_ITEMS.stream().map(i -> i.get())
+                            .toArray(net.minecraft.world.level.ItemLike[]::new));
+            event.register((stack, tintIndex) ->
+                            stack.getItem() instanceof net.minecraft.world.item.BlockItem item
                                     && item.getBlock() instanceof net.fraeric.elnr.common.cable.StandBlock stand
                                     ? stand.getTintRgb() : 0xFFFFFF,
                     ModBlocks.STANDS.stream().map(stand -> stand.get().asItem())
@@ -140,6 +146,8 @@ public class ELNReborn
             event.registerBlockEntityRenderer(ModBlockEntities.METER.get(), net.fraeric.elnr.client.MeterRenderer::new);
             event.registerBlockEntityRenderer(net.fraeric.elnr.registry.ModMachines.WIND_TURBINE_BE.get(),
                     net.fraeric.elnr.client.WindTurbineRenderer::new);
+            event.registerBlockEntityRenderer(net.fraeric.elnr.registry.ModMachines.TUBE_LIGHT_BE.get(),
+                    net.fraeric.elnr.client.TubeLightRenderer::new);
             event.registerBlockEntityRenderer(net.fraeric.elnr.registry.ModMachines.WIND_TURBINE_POLE_BE.get(),
                     net.fraeric.elnr.client.WindTurbinePoleRenderer::new);
         }

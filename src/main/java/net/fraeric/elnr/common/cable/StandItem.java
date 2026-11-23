@@ -17,6 +17,58 @@ public class StandItem extends BlockItem {
         super(block, properties);
     }
 
+    /**
+     * Right-clicking a cable with a stand puts the stand in place of the cable (the cable ends up inside the
+     * stand). The stand must be of the same voltage tier and bundled exactly when the cable is. Anything else
+     * is placed next to the clicked block as usual, where the stand joins the neighbouring cables and devices
+     * by itself.
+     */
+    @Override
+    public net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context) {
+        Level level = context.getLevel();
+        net.minecraft.core.BlockPos pos = context.getClickedPos();
+        net.minecraft.world.level.block.state.BlockState clicked = level.getBlockState(pos);
+        if (!(clicked.getBlock() instanceof CableBlock cable) || !(getBlock() instanceof StandBlock stand)) {
+            return super.useOn(context);
+        }
+        net.minecraft.world.entity.player.Player player = context.getPlayer();
+        if (cable.getTier() != stand.getTier() || cable.isBundled() != stand.isBundled()) {
+            if (player != null && level.isClientSide) {
+                player.displayClientMessage(Component.translatable("message.elnr.stand.mismatch"), true);
+            }
+            return net.minecraft.world.InteractionResult.FAIL;
+        }
+        // Only a block with a single cable can be taken over, otherwise the other cables would vanish.
+        net.minecraft.core.Direction support = null;
+        int faces = 0;
+        for (net.minecraft.core.Direction d : net.minecraft.core.Direction.values()) {
+            if (cable.hasFace(clicked, d)) {
+                faces++;
+                if (support == null || d == context.getClickedFace()) {
+                    support = d;
+                }
+            }
+        }
+        if (faces != 1) {
+            return net.minecraft.world.InteractionResult.FAIL;
+        }
+        net.minecraft.world.level.block.state.BlockState placed = stand.defaultBlockState()
+                .setValue(StandBlock.FACING, support.getOpposite());
+        if (!placed.canSurvive(level, pos)) {
+            return net.minecraft.world.InteractionResult.FAIL;
+        }
+        if (!level.isClientSide) {
+            level.setBlock(pos, placed, net.minecraft.world.level.block.Block.UPDATE_ALL);
+            level.playSound(null, pos, placed.getSoundType().getPlaceSound(),
+                    net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
+            ElectricNetwork.updateAt(level, pos);
+            if (player == null || !player.getAbilities().instabuild) {
+                context.getItemInHand().shrink(1);
+            }
+        }
+        return net.minecraft.world.InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         if (!(getBlock() instanceof StandBlock stand)) {

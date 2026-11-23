@@ -4,6 +4,11 @@ import net.fraeric.elnr.registry.ModMachines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -53,6 +58,28 @@ public class StorageBlock extends MachineBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StorageBlockEntity(pos, state);
+    }
+
+    /** Right-click shows the terminal voltage, stored energy, charge level and the current power flow. */
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (isCable(player.getItemInHand(hand))) {
+            return InteractionResult.PASS;
+        }
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof StorageBlockEntity be) {
+            double max = maxEnergy();
+            double watts = be.getLastWatts();
+            String key = watts > 1.0D ? "charging" : watts < -1.0D ? "discharging" : "idle";
+            String power = Math.abs(watts) >= 1.0E3D
+                    ? String.format(java.util.Locale.ROOT, "%.1f kW", Math.abs(watts) / 1.0E3D)
+                    : String.format(java.util.Locale.ROOT, "%.0f W", Math.abs(watts));
+            player.displayClientMessage(Component.translatable("message.elnr.storage.info",
+                    String.format(java.util.Locale.ROOT, "%.1f", be.storageVoltage()),
+                    StorageBlockItem.fmt(be.getEnergy()), StorageBlockItem.fmt(max),
+                    String.format(java.util.Locale.ROOT, "%.0f", max > 0 ? 100.0D * be.getEnergy() / max : 0.0D),
+                    Component.translatable("message.elnr.storage." + key, power)), true);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Override

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "elnr:neon_strip_24v_thin_white"
+    },
+    {
+      "item": "minecraft:purple_dye"
+    }
+  ],
+  "result": {
+    "item": "elnr:neon_strip_24v_thin_purple",
+    "count": 1
+  }
+}

@@ -54,6 +54,11 @@ public class ModItems {
         BULB = clear50;
     }
 
+    public static final RegistryObject<Item> BURNT_BULB = ITEMS.register("burnt_bulb",
+            () -> new net.fraeric.elnr.common.item.BrokenBulbItem(new Item.Properties(), false));
+    public static final RegistryObject<Item> CRACKED_BULB = ITEMS.register("cracked_bulb",
+            () -> new net.fraeric.elnr.common.item.BrokenBulbItem(new Item.Properties(), true));
+
     /** Relay coils by voltage, and the burnt coil. */
     public static final List<RegistryObject<Item>> RELAY_COILS = new java.util.ArrayList<>();
     static {

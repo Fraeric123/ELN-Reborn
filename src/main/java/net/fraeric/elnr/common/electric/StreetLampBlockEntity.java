@@ -23,14 +23,17 @@ public class StreetLampBlockEntity extends BlockEntity implements BulbHolder {
 
     public static final int BULB_SLOT = 0;
     public static final int CABLE_SLOT = 1;
+    /** Container slots of the bulbs (the chandelier uses all six, the lamps only the first). */
+    public static final int[] BULB_SLOTS = {0, 2, 3, 4, 5, 6};
+    public static final int SLOTS = 7;
 
-    private final SimpleContainer inventory = new SimpleContainer(2) {
+    private final SimpleContainer inventory = new SimpleContainer(SLOTS) {
         @Override
         public boolean canPlaceItem(int slot, ItemStack stack) {
-            if (slot == BULB_SLOT) {
-                return stack.getItem() instanceof BulbItem;
+            if (slot == CABLE_SLOT) {
+                return stack.getItem() instanceof CableItem;
             }
-            return stack.getItem() instanceof CableItem;
+            return stack.getItem() instanceof BulbItem;
         }
     };
 
@@ -63,8 +66,36 @@ public class StreetLampBlockEntity extends BlockEntity implements BulbHolder {
     }
 
     @Override
+    public int bulbCount() {
+        return getBlockState().getBlock() instanceof ChandelierBlock ? BULB_SLOTS.length : 1;
+    }
+
+    @Override
+    public ItemStack bulbAt(int index) {
+        return inventory.getItem(BULB_SLOTS[index]);
+    }
+
+    @Override
+    public void setBulbAt(int index, ItemStack stack) {
+        inventory.setItem(BULB_SLOTS[index], stack);
+        setChanged();
+    }
+
+    @Override
+    public BlockPos effectPos(BlockPos pos) {
+        return getBlockState().getBlock() instanceof StreetLampBlock lamp
+                && !(lamp instanceof WallStreetLampBlock) && !(lamp instanceof ChandelierBlock) ? pos.above(2) : pos;
+    }
+
+    /** The first bulb that is present (any kind), or empty. */
+    @Override
     public ItemStack getBulb() {
-        return inventory.getItem(BULB_SLOT);
+        for (int i = 0; i < bulbCount(); i++) {
+            if (!bulbAt(i).isEmpty()) {
+                return bulbAt(i);
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -98,7 +129,7 @@ public class StreetLampBlockEntity extends BlockEntity implements BulbHolder {
     public void breakBulb(Level level, BlockPos pos) {
         setBulb(ItemStack.EMPTY);
         // The bulb burns in the lamp head, two blocks above the base.
-        BlockPos headPos = pos.above(2);
+        BlockPos headPos = getBlockState().getBlock() instanceof WallStreetLampBlock ? pos : pos.above(2);
         level.playSound(null, headPos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 0.8F, 1.0F);
         if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.CRIT,
