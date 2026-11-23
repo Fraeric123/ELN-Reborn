@@ -141,7 +141,7 @@ public final class ElectricProbe {
             if (!(cableState.getBlock() instanceof CableBlock cable)) {
                 continue;
             }
-            if (tier != null && cable.getTier() != tier) {
+            if (cable.getTier().isSignal() || (tier != null && cable.getTier() != tier)) {
                 continue;
             }
             // Devices connect through any face of a neighbouring piece; skip the side

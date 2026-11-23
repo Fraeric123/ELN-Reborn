@@ -124,13 +124,14 @@ public class StandBlock extends Block implements EntityBlock {
             case MV -> 3.0D;
             case HV -> 4.0D;
             case VHV -> 5.0D;
+            case SIGNAL -> 1.0D;
         };
     }
 
     /** Number of insulator discs of the model. */
     private int discCount() {
         return switch (tier) {
-            case LV -> 1;
+            case LV, SIGNAL -> 1;
             case MV -> 2;
             default -> 3;
         };

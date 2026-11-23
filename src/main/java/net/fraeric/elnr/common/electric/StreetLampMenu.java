@@ -83,7 +83,7 @@ public class StreetLampMenu extends AbstractContainerMenu {
         addSlot(new Slot(container, StreetLampBlockEntity.CABLE_SLOT, chandelier ? 80 : CABLE_X, chandelier ? 56 : SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof CableItem;
+                return CableItem.isPowerCable(stack);
             }
 
             @Override
@@ -122,7 +122,7 @@ public class StreetLampMenu extends AbstractContainerMenu {
             if (!moveItemStackTo(stack, 0, machine - 1, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (stack.getItem() instanceof CableItem) {
+        } else if (CableItem.isPowerCable(stack)) {
             if (!moveItemStackTo(stack, machine - 1, machine, false)) {
                 return ItemStack.EMPTY;
             }

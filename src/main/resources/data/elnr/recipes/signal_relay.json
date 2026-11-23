@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "elnr:cable_signal"
+    }
+  ],
+  "result": {
+    "item": "elnr:signal_relay",
+    "count": 1
+  }
+}

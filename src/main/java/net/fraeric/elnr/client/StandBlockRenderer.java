@@ -34,6 +34,9 @@ public class StandBlockRenderer implements BlockEntityRenderer<StandBlockEntity>
             ResourceLocation.tryBuild("elnr", "textures/block/cable.png"));
     private static final ResourceLocation TEXTURE_VHV = Objects.requireNonNull(
             ResourceLocation.tryBuild("elnr", "textures/block/cable_vhv.png"));
+    /** Signal cable texture (64x32): black, white, black stripes; the body is sampled on the white stripe. */
+    private static final ResourceLocation TEXTURE_SIGNAL = Objects.requireNonNull(
+            ResourceLocation.tryBuild("elnr", "textures/block/cable_signal.png"));
 
     /** Sag of the line in the middle, as a fraction of its length (capped). */
     private static final double SAG_PER_LENGTH = 0.04D;
@@ -54,11 +57,12 @@ public class StandBlockRenderer implements BlockEntityRenderer<StandBlockEntity>
         CableTier tier = stand.getTier();
         float[] rgb = lineColor(stand);
         // Wire radius in blocks: grows with the voltage class; a bundle has a fat sheath.
-        float radius = (0.5F + 0.25F * tier.ordinal()) / 16.0F * (stand.isBundled() ? 2.4F : 1.0F);
-        int sides = stand.isBundled() || tier.ordinal() >= CableTier.HV.ordinal() ? 8 : 6;
+        // A signal line is a thin wire (1 px) whatever its position in the enum.
+        float radius = (tier.isSignal() ? 0.5F : 0.5F + 0.25F * tier.ordinal()) / 16.0F * (stand.isBundled() ? 2.4F : 1.0F);
+        int sides = stand.isBundled() || (!tier.isSignal() && tier.ordinal() >= CableTier.HV.ordinal()) ? 8 : 6;
 
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(
-                tier == CableTier.VHV ? TEXTURE_VHV : TEXTURE));
+                tier.isSignal() ? TEXTURE_SIGNAL : tier == CableTier.VHV ? TEXTURE_VHV : TEXTURE));
         PoseStack.Pose pose = poseStack.last();
         int light = LevelRenderer.getLightColor(level, entity.getBlockPos());
 

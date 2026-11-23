@@ -139,6 +139,9 @@ public final class ElectricNetwork {
         for (BlockPos start : starts) {
             BlockState state = level.getBlockState(start);
             if (state.getBlock() instanceof StandBlock stand) {
+                if (stand.getTier().isSignal()) {
+                    continue; // Signal cables carry no electricity; see SignalNetwork.
+                }
                 for (int channel : stand.channels()) {
                     Node node = new Node(start.immutable(), Direction.DOWN, channel);
                     if (!visited.contains(node)) {
@@ -147,7 +150,7 @@ public final class ElectricNetwork {
                 }
                 continue;
             }
-            if (!(state.getBlock() instanceof CableBlock cable)) {
+            if (!(state.getBlock() instanceof CableBlock cable) || cable.getTier().isSignal()) {
                 continue;
             }
             for (Direction face : Direction.values()) {
@@ -176,6 +179,9 @@ public final class ElectricNetwork {
                 applyToLoad(level, start, voltage);
             }
         }
+
+        // Signal cables are a separate, purely logical network.
+        net.fraeric.elnr.common.signal.SignalNetwork.update(level, starts);
     }
 
     // ------------------------------------------------------------------
@@ -243,7 +249,8 @@ public final class ElectricNetwork {
     private static boolean hasAdjacentCable(BlockGetter level, BlockPos pos, @Nullable CableTier tier, boolean anyTier) {
         for (Direction direction : Direction.values()) {
             Block neighbour = level.getBlockState(pos.relative(direction)).getBlock();
-            if (neighbour instanceof CableBlock || neighbour instanceof StandBlock) {
+            if ((neighbour instanceof CableBlock cable && !cable.getTier().isSignal())
+                    || (neighbour instanceof StandBlock stand && !stand.getTier().isSignal())) {
                 return true;
             }
         }
@@ -344,13 +351,14 @@ public final class ElectricNetwork {
             for (Direction direction : Direction.values()) {
                 BlockPos p = base.relative(direction);
                 BlockState state = level.getBlockState(p);
-                if (state.getBlock() instanceof CableBlock cable && !cable.isBundled()) {
+                if (state.getBlock() instanceof CableBlock cable && !cable.isBundled() && !cable.getTier().isSignal()) {
                     for (Direction face : Direction.values()) {
                         if (cable.hasFace(state, face)) {
                             return collect(level, new Node(p.immutable(), face), new HashSet<>());
                         }
                     }
-                } else if (state.getBlock() instanceof StandBlock stand && !stand.cableType().isBundled()) {
+                } else if (state.getBlock() instanceof StandBlock stand && !stand.cableType().isBundled()
+                        && !stand.getTier().isSignal()) {
                     return collect(level, new Node(p.immutable(), Direction.DOWN, -1), new HashSet<>());
                 }
             }
@@ -395,8 +403,8 @@ public final class ElectricNetwork {
                 }
             }
 
-            if (cable.isBundled()) {
-                continue; // Bundles only carry wires, they do not touch devices.
+            if (cable.isBundled() || cable.getTier().isSignal()) {
+                continue; // Bundles only carry wires, signal cables only carry a boolean: no devices.
             }
 
             // Devices around the piece; devices are hubs, so any neighbouring device
@@ -755,7 +763,7 @@ public final class ElectricNetwork {
             BlockState state = level.getBlockState(cablePos);
             if (state.getBlock() instanceof StandBlock stand) {
                 CableBlock type = stand.cableType();
-                if (type.isBundled() || (tier != null && type.getTier() != tier)
+                if (type.isBundled() || type.getTier().isSignal() || (tier != null && type.getTier() != tier)
                         || (plug != null && !CableBlock.canLink(plug, -1, type))) {
                     continue;
                 }
@@ -774,7 +782,7 @@ public final class ElectricNetwork {
             if (plug != null && !CableBlock.canLink(plug, -1, cable)) {
                 continue;
             }
-            if (cable.isBundled()) {
+            if (cable.isBundled() || cable.getTier().isSignal()) {
                 continue;
             }
             for (Direction face : Direction.values()) {

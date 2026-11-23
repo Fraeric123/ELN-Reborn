@@ -31,7 +31,7 @@ public class SocketBlockEntity extends BlockEntity implements BulbHolder {
             if (slot == BULB_SLOT) {
                 return stack.getItem() instanceof BulbItem;
             }
-            return stack.getItem() instanceof CableItem;
+            return CableItem.isPowerCable(stack);
         }
     };
 

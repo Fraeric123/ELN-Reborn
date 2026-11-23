@@ -31,7 +31,7 @@ public class StreetLampBlockEntity extends BlockEntity implements BulbHolder {
         @Override
         public boolean canPlaceItem(int slot, ItemStack stack) {
             if (slot == CABLE_SLOT) {
-                return stack.getItem() instanceof CableItem;
+                return CableItem.isPowerCable(stack);
             }
             return stack.getItem() instanceof BulbItem;
         }

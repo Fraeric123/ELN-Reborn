@@ -67,7 +67,7 @@ public class SocketMenu extends AbstractContainerMenu {
         addSlot(new Slot(container, SocketBlockEntity.CABLE_SLOT, CABLE_X, SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.getItem() instanceof CableItem;
+                return CableItem.isPowerCable(stack);
             }
 
             @Override
@@ -105,7 +105,7 @@ public class SocketMenu extends AbstractContainerMenu {
             if (!moveItemStackTo(stack, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (stack.getItem() instanceof CableItem) {
+        } else if (CableItem.isPowerCable(stack)) {
             if (!moveItemStackTo(stack, 1, 2, false)) {
                 return ItemStack.EMPTY;
             }

@@ -260,6 +260,11 @@ public class CableBlock extends Block implements EntityBlock {
     private static float deviceReach(BlockGetter level, BlockPos devicePos, BlockState device,
                                      CableBlock cable, Direction face) {
         Block block = device.getBlock();
+        if (cable.getTier().isSignal()) {
+            // Signal cables only reach signal devices (relay, redstone adapter).
+            return block instanceof net.fraeric.elnr.common.signal.SignalDevice signalDevice
+                    ? signalDevice.cableReach(device, face) : -1.0F;
+        }
         if (block instanceof net.fraeric.elnr.common.machine.WindTurbinePoleBlock) {
             return net.fraeric.elnr.common.machine.WindTurbinePoleBlock.reach(device);
         }
@@ -340,7 +345,8 @@ public class CableBlock extends Block implements EntityBlock {
                     && other.hasFace(neighbour, face)) {
                 // Straight continuation along the same face into a neighbouring block.
                 arms.add(new Arm(direction, ArmKind.STRAIGHT, face, 0.0F));
-            } else if (neighbour.getBlock() instanceof SwitchBlock switchNeighbour
+            } else if (!cable.getTier().isSignal()
+                    && neighbour.getBlock() instanceof SwitchBlock switchNeighbour
                     && switchNeighbour.hasTerminalAt(neighbour, direction.getOpposite())
                     && SwitchBlock.mountFace(neighbour) == face) {
                 // A switch terminal on the same surface: the strip runs into the switch.

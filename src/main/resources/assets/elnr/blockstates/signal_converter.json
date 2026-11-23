@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "output=false,powered=false": {
+      "model": "elnr:block/signal_converter_in"
+    },
+    "output=false,powered=true": {
+      "model": "elnr:block/signal_converter_in_on"
+    },
+    "output=true,powered=false": {
+      "model": "elnr:block/signal_converter_out"
+    },
+    "output=true,powered=true": {
+      "model": "elnr:block/signal_converter_out_on"
+    }
+  }
+}

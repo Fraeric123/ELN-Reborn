@@ -33,7 +33,7 @@ public class SocketItem extends TooltipBlockItem {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState clicked = level.getBlockState(pos);
-        if (!(clicked.getBlock() instanceof CableBlock cable) || cable.isBundled()) {
+        if (!(clicked.getBlock() instanceof CableBlock cable) || cable.isBundled() || cable.getTier().isSignal()) {
             return super.useOn(context);
         }
 

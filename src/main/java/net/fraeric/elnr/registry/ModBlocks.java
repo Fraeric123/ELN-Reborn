@@ -56,6 +56,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> CABLE_MV = registerCable("cable_mv", CableTier.MV);
     public static final RegistryObject<Block> CABLE_HV = registerCable("cable_hv", CableTier.HV);
     public static final RegistryObject<Block> CABLE_VHV = registerCable("cable_vhv", CableTier.VHV);
+    /** Bare signal cable (the coloured and bundled signal cables are registered with the other cables below). */
+    public static final RegistryObject<Block> CABLE_SIGNAL = registerCable("cable_signal", CableTier.SIGNAL);
 
     // Electrical machines
     public static final RegistryObject<Block> SOCKET = registerSocket();
@@ -135,6 +137,16 @@ public class ModBlocks {
             registerBlock("redstone_switch", () -> new net.fraeric.elnr.common.electric.RedstoneSwitchBlock(
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
                     "tooltip.elnr.redstone_switch.1", "tooltip.elnr.redstone_switch.2");
+    /** Two terminal switch closed by a signal cable (the signal counterpart of the redstone switch). */
+    public static final RegistryObject<Block> SIGNAL_RELAY =
+            registerBlock("signal_relay", () -> new net.fraeric.elnr.common.signal.SignalRelayBlock(
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),
+                    "tooltip.elnr.signal_relay.1", "tooltip.elnr.signal_relay.2", "tooltip.elnr.signal_relay.3");
+    /** Adapter between redstone and signal cables (direction switched by right click). */
+    public static final RegistryObject<Block> SIGNAL_CONVERTER =
+            registerBlock("signal_converter", () -> new net.fraeric.elnr.common.signal.SignalConverterBlock(
+                    BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL)),
+                    "tooltip.elnr.signal_converter.1", "tooltip.elnr.signal_converter.2", "tooltip.elnr.signal_converter.3");
     public static final RegistryObject<Block> TIMER =
             registerBlock("timer", () -> new TimerBlock(
                     BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion()),

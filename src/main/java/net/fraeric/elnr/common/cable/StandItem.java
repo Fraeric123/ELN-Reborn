@@ -83,8 +83,12 @@ public class StandItem extends BlockItem {
         } else {
             tooltip.add(Component.translatable("tooltip.elnr.stand.bare").withStyle(ChatFormatting.AQUA));
         }
-        tooltip.add(Component.translatable("tooltip.elnr.cable.voltage", tier.getVoltage()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.elnr.cable.current", tier.getMaxCurrent()).withStyle(ChatFormatting.GRAY));
+        if (tier.isSignal()) {
+            tooltip.add(Component.translatable("tooltip.elnr.signal_stand").withStyle(ChatFormatting.GRAY));
+        } else {
+            tooltip.add(Component.translatable("tooltip.elnr.cable.voltage", tier.getVoltage()).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.elnr.cable.current", tier.getMaxCurrent()).withStyle(ChatFormatting.GRAY));
+        }
         tooltip.add(Component.translatable("tooltip.elnr.stand.span", (int) stand.getMaxSpan()).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.elnr.stand.usage.1").withStyle(ChatFormatting.DARK_GRAY));
         tooltip.add(Component.translatable("tooltip.elnr.stand.usage.2").withStyle(ChatFormatting.DARK_GRAY));

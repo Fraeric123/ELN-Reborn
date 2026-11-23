@@ -40,6 +40,27 @@ public class ProbeItem extends TooltipItem {
         if (!(context.getPlayer() instanceof ServerPlayer player)) {
             return InteractionResult.PASS;
         }
+        // Signal cables and devices carry a boolean only: the multimeter shows ON / OFF. A signal relay is
+        // also an ordinary switch, so after its signal line the electric reading follows.
+        Boolean signal = net.fraeric.elnr.common.signal.SignalNetwork.probe(
+                context.getLevel(), context.getClickedPos(), context.getClickLocation());
+        if (signal != null) {
+            boolean alsoSwitch = context.getLevel().getBlockState(context.getClickedPos()).getBlock()
+                    instanceof net.fraeric.elnr.common.electric.SwitchBlock;
+            if (mode == Mode.MULTIMETER) {
+                if (!alsoSwitch) {
+                    Component name = context.getLevel().getBlockState(context.getClickedPos()).getBlock().getName();
+                    player.sendSystemMessage(Component.translatable("message.elnr.multimeter.header", name)
+                            .withStyle(ChatFormatting.YELLOW));
+                }
+                player.sendSystemMessage(Component.translatable(signal
+                        ? "message.elnr.multimeter.signal_on" : "message.elnr.multimeter.signal_off")
+                        .withStyle(signal ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+            }
+            if (!alsoSwitch) {
+                return mode == Mode.MULTIMETER ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            }
+        }
         Optional<ElectricProbe.Reading> reading = ElectricProbe.measure(
                 context.getLevel(), context.getClickedPos(), context.getClickLocation());
         if (reading.isEmpty()) {

@@ -41,8 +41,12 @@ public class OverheadLineItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable(bundled ? "tooltip.elnr.overhead_line.bundled"
                 : "tooltip.elnr.overhead_line.single").withStyle(ChatFormatting.AQUA));
-        tooltip.add(Component.translatable("tooltip.elnr.cable.voltage", tier.getVoltage()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.elnr.cable.current", tier.getMaxCurrent()).withStyle(ChatFormatting.GRAY));
+        if (tier.isSignal()) {
+            tooltip.add(Component.translatable("tooltip.elnr.signal_stand").withStyle(ChatFormatting.GRAY));
+        } else {
+            tooltip.add(Component.translatable("tooltip.elnr.cable.voltage", tier.getVoltage()).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.elnr.cable.current", tier.getMaxCurrent()).withStyle(ChatFormatting.GRAY));
+        }
         tooltip.add(Component.translatable("tooltip.elnr.stand.span", (int) tier.getMaxSpan()).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.elnr.overhead_line.use").withStyle(ChatFormatting.DARK_GRAY));
     }

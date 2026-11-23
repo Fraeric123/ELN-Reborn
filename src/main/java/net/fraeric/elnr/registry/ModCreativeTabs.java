@@ -85,6 +85,8 @@ public class ModCreativeTabs {
                 output.accept(ModWireless.REMOTE.get());
                 output.accept(ModWireless.TRANSMITTER_ITEM.get());
                 output.accept(ModWireless.REDSTONE_SOURCE_ITEM.get());
+                output.accept(ModBlocks.SIGNAL_RELAY.get());
+                output.accept(ModBlocks.SIGNAL_CONVERTER.get());
                 ModBlocks.RELAYS.forEach(relay -> output.accept(relay.get()));
                 ModItems.RELAY_COILS.forEach(coil -> output.accept(coil.get()));
                 output.accept(ModItems.RELAY_COIL_BURNT.get());

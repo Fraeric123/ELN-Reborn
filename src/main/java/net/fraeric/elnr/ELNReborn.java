@@ -137,7 +137,10 @@ public class ELNReborn
                             stack.getItem() instanceof net.minecraft.world.item.BlockItem item
                                     && item.getBlock() instanceof net.fraeric.elnr.common.cable.StandBlock stand
                                     ? stand.getTintRgb() : 0xFFFFFF,
-                    ModBlocks.STANDS.stream().map(stand -> stand.get().asItem())
+                    // Signal stands have their colour painted into the item texture.
+                    ModBlocks.STANDS.stream()
+                            .filter(stand -> !((net.fraeric.elnr.common.cable.StandBlock) stand.get()).getTier().isSignal())
+                            .map(stand -> stand.get().asItem())
                             .toArray(net.minecraft.world.level.ItemLike[]::new));
         }
 

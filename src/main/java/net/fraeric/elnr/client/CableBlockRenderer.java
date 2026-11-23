@@ -39,6 +39,12 @@ public class CableBlockRenderer implements BlockEntityRenderer<CableBlockEntity>
     /** {@code sprites/cableVHV.png} of the original (64x32). */
     private static final ResourceLocation TEXTURE_VHV = Objects.requireNonNull(
             ResourceLocation.tryBuild("elnr", "textures/block/cable_vhv.png"));
+    /**
+     * Signal cable (64x32): the cable body is three pixels wide, black - white - black, the knobs
+     * at junctions repeat the pattern. The white stripe takes the insulation colour of the cable.
+     */
+    private static final ResourceLocation TEXTURE_SIGNAL = Objects.requireNonNull(
+            ResourceLocation.tryBuild("elnr", "textures/block/cable_signal.png"));
 
     /**
      * The original tints the cable with its dye colour, and an undyed cable uses dye 0,
@@ -81,7 +87,25 @@ public class CableBlockRenderer implements BlockEntityRenderer<CableBlockEntity>
             bodyBlue = (rgb & 0xFF) / 255.0F * 0.8F;
         }
 
-        ResourceLocation texture = tier == CableTier.VHV ? TEXTURE_VHV : TEXTURE;
+        if (tier.isSignal()) {
+            // Black edges come from the texture; only the white stripe is tinted (a bare signal
+            // cable stays white, a bundle gets a light grey stripe).
+            bodyRed = 1.0F;
+            bodyGreen = 1.0F;
+            bodyBlue = 1.0F;
+            if (cableBlock.isBundled()) {
+                bodyRed = 0.75F;
+                bodyGreen = 0.75F;
+                bodyBlue = 0.75F;
+            } else if (cableBlock.getColor() >= 0) {
+                int rgb = net.fraeric.elnr.common.cable.CableColors.RGB[cableBlock.getColor()];
+                bodyRed = ((rgb >> 16) & 0xFF) / 255.0F;
+                bodyGreen = ((rgb >> 8) & 0xFF) / 255.0F;
+                bodyBlue = (rgb & 0xFF) / 255.0F;
+            }
+        }
+
+        ResourceLocation texture = tier.isSignal() ? TEXTURE_SIGNAL : tier == CableTier.VHV ? TEXTURE_VHV : TEXTURE;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(texture));
         PoseStack.Pose pose = poseStack.last();
 
