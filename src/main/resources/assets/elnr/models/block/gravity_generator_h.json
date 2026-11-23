@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "elnr:block/gravity_side",
+    "bottom": "elnr:block/gravity_side",
+    "front": "elnr:block/gravity_front",
+    "side": "elnr:block/gravity_back"
+  }
+}

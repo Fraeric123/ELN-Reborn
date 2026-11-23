@@ -100,6 +100,17 @@ public final class ModMachines {
             () -> new net.fraeric.elnr.common.item.TooltipBlockItem(FE_CONVERTER.get(), new Item.Properties(),
                     "tooltip.elnr.fe.1", "tooltip.elnr.fe.2"));
 
+    public static final RegistryObject<Block> GRAVITY_GENERATOR = ModBlocks.BLOCKS.register("gravity_generator",
+            () -> new GravityBlock(metal(3.0F)));
+    public static final RegistryObject<Item> GRAVITY_GENERATOR_ITEM = ModItems.ITEMS.register("gravity_generator",
+            () -> new net.fraeric.elnr.common.item.TooltipBlockItem(GRAVITY_GENERATOR.get(), new Item.Properties(),
+                    "tooltip.elnr.gravity.1", "tooltip.elnr.gravity.2"));
+    public static final RegistryObject<BlockEntityType<GravityBlockEntity>> GRAVITY_BE =
+            ModBlockEntities.BLOCK_ENTITIES.register("gravity_generator",
+                    () -> BlockEntityType.Builder.of(GravityBlockEntity::new, GRAVITY_GENERATOR.get()).build(null));
+    public static final RegistryObject<MenuType<GravityMenu>> GRAVITY_MENU = ModMenus.MENUS.register("gravity_generator",
+            () -> IForgeMenuType.create((id, inv, buf) -> new GravityMenu(id, inv, buf.readBlockPos())));
+
     /** Fluorescent lamps (220 V) and neon strips (24 / 50 / 220 V) in three thicknesses; one item per colour. */
     public static final List<RegistryObject<Block>> TUBE_LIGHTS = new ArrayList<>();
     public static final List<RegistryObject<Item>> TUBE_LIGHT_ITEMS = new ArrayList<>();

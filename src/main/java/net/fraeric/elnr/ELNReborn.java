@@ -92,6 +92,8 @@ public class ELNReborn
                 net.minecraft.client.gui.screens.MenuScreens.register(
                         net.fraeric.elnr.registry.ModMachines.FE_MENU.get(), net.fraeric.elnr.client.PanelScreen::new);
                 net.minecraft.client.gui.screens.MenuScreens.register(
+                        net.fraeric.elnr.registry.ModMachines.GRAVITY_MENU.get(), net.fraeric.elnr.client.GravityScreen::new);
+                net.minecraft.client.gui.screens.MenuScreens.register(
                         net.fraeric.elnr.registry.ModMachines.FURNACE_MENU.get(), net.fraeric.elnr.client.FurnaceScreen::new);
                 net.minecraft.client.gui.screens.MenuScreens.register(
                         net.fraeric.elnr.registry.ModWireless.FREQUENCY_MENU.get(), net.fraeric.elnr.client.FrequencyScreen::new);

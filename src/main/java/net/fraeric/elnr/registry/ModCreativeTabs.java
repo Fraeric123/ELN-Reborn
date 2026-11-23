@@ -100,6 +100,7 @@ public class ModCreativeTabs {
     public static final RegistryObject<CreativeModeTab> MACHINES_TAB = tab("machines",
             () -> new ItemStack(ModMachines.MINER_ITEM.get()), (parameters, output) -> {
                 output.accept(ModMachines.MINER_ITEM.get());
+                output.accept(ModMachines.GRAVITY_GENERATOR_ITEM.get());
                 output.accept(ModMachines.FURNACE_ITEM.get());
                 output.accept(ModWireless.C4_ITEM.get());
                 ModItems.BULBS.forEach(bulb -> output.accept(bulb.get()));

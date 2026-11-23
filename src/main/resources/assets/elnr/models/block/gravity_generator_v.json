@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "elnr:block/gravity_side",
+    "up": "elnr:block/gravity_front",
+    "down": "elnr:block/gravity_back",
+    "north": "elnr:block/gravity_side",
+    "south": "elnr:block/gravity_side",
+    "east": "elnr:block/gravity_side",
+    "west": "elnr:block/gravity_side"
+  }
+}
