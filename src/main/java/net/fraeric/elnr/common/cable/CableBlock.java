@@ -263,6 +263,9 @@ public class CableBlock extends Block implements EntityBlock {
         if (block instanceof net.fraeric.elnr.common.machine.WindTurbinePoleBlock) {
             return net.fraeric.elnr.common.machine.WindTurbinePoleBlock.reach(device);
         }
+        if (block instanceof net.fraeric.elnr.common.machine.SolarPanelLegBlock) {
+            return 4.0F / 16.0F;
+        }
         if (block instanceof net.fraeric.elnr.common.machine.WindTurbineBlock) {
             return 5.0F / 16.0F;
         }

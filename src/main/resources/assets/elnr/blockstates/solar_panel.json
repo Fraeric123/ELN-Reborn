@@ -1,0 +1,290 @@
+{
+ "multipart": [
+  {
+   "apply": {
+    "model": "elnr:block/solar_panel_base"
+   }
+  },
+  {
+   "apply": {
+    "model": "elnr:block/solar_panel_cells"
+   }
+  },
+  {
+   "when": {
+    "north": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_wall_north"
+   }
+  },
+  {
+   "when": {
+    "north": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwall_north"
+   }
+  },
+  {
+   "when": {
+    "north": "true"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_bridge_north"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "north": "false"
+     },
+     {
+      "east": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_north_east"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "north": "false"
+     },
+     {
+      "west": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_north_west"
+   }
+  },
+  {
+   "when": {
+    "east": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_wall_east"
+   }
+  },
+  {
+   "when": {
+    "east": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwall_east"
+   }
+  },
+  {
+   "when": {
+    "east": "true"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_bridge_east"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "east": "false"
+     },
+     {
+      "north": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_east_north"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "east": "false"
+     },
+     {
+      "south": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_east_south"
+   }
+  },
+  {
+   "when": {
+    "south": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_wall_south"
+   }
+  },
+  {
+   "when": {
+    "south": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwall_south"
+   }
+  },
+  {
+   "when": {
+    "south": "true"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_bridge_south"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "south": "false"
+     },
+     {
+      "east": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_south_east"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "south": "false"
+     },
+     {
+      "west": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_south_west"
+   }
+  },
+  {
+   "when": {
+    "west": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_wall_west"
+   }
+  },
+  {
+   "when": {
+    "west": "false"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwall_west"
+   }
+  },
+  {
+   "when": {
+    "west": "true"
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_bridge_west"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "west": "false"
+     },
+     {
+      "north": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_west_north"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "west": "false"
+     },
+     {
+      "south": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_cellwallext_west_south"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "north": "true"
+     },
+     {
+      "west": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_corner_north_west"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "north": "true"
+     },
+     {
+      "east": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_corner_north_east"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "south": "true"
+     },
+     {
+      "west": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_corner_south_west"
+   }
+  },
+  {
+   "when": {
+    "AND": [
+     {
+      "south": "true"
+     },
+     {
+      "east": "true"
+     }
+    ]
+   },
+   "apply": {
+    "model": "elnr:block/solar_panel_corner_south_east"
+   }
+  }
+ ]
+}

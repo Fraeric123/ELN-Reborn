@@ -37,6 +37,9 @@ public class ModMenus {
             MENUS.register("limiter", () -> IForgeMenuType.create(
                     (windowId, inventory, data) -> new net.fraeric.elnr.common.electric.LimiterMenu(windowId, inventory, data.readBlockPos())));
 
+    public static final RegistryObject<MenuType<net.fraeric.elnr.common.electric.SocketMenu>> SOCKET =
+            MENUS.register("socket", () -> IForgeMenuType.create(
+                    (windowId, inventory, data) -> new net.fraeric.elnr.common.electric.SocketMenu(windowId, inventory, data.readBlockPos())));
     public static final RegistryObject<MenuType<net.fraeric.elnr.common.electric.StreetLampMenu>> STREET_LAMP =
             MENUS.register("street_lamp", () -> IForgeMenuType.create(
                     (windowId, inventory, data) -> new net.fraeric.elnr.common.electric.StreetLampMenu(windowId, inventory, data.readBlockPos())));

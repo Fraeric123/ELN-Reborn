@@ -35,8 +35,18 @@ public class SocketBlockEntity extends BlockEntity implements BulbHolder {
         }
     };
 
+    private boolean loading;
+
     public SocketBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.SOCKET.get(), pos, state);
+        // Slots changed through the menu: refresh the model state and the client copy.
+        inventory.addListener(c -> {
+            if (!loading) {
+                setChanged();
+                syncBulbState();
+                syncToClient();
+            }
+        });
     }
 
     public Container getInventory() {
@@ -128,9 +138,11 @@ public class SocketBlockEntity extends BlockEntity implements BulbHolder {
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
+        loading = true;
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             String key = "Slot" + slot;
             inventory.setItem(slot, tag.contains(key) ? ItemStack.of(tag.getCompound(key)) : ItemStack.EMPTY);
         }
+        loading = false;
     }
 }

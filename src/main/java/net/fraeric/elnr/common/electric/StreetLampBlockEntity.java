@@ -46,6 +46,9 @@ public class StreetLampBlockEntity extends BlockEntity implements BulbHolder {
     public void setChanged() {
         super.setChanged();
         if (level != null && !level.isClientSide) {
+            if (getBlockState().getBlock() instanceof StreetLampBlock) {
+                StreetLampBlock.setHeadBulb(level, worldPosition, hasBulb());
+            }
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
         }
     }

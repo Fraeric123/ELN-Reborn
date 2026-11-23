@@ -60,6 +60,8 @@ public class ModCreativeTabs {
                 output.accept(ModMachines.GENERATOR_ITEM.get());
                 output.accept(ModMachines.WIND_TURBINE_ITEM.get());
                 output.accept(ModMachines.WIND_TURBINE_POLE_ITEM.get());
+                output.accept(ModMachines.SOLAR_PANEL_ITEM.get());
+                output.accept(ModMachines.SOLAR_PANEL_LEG_ITEM.get());
                 output.accept(ModMachines.FE_CONVERTER_ITEM.get());
             });
 

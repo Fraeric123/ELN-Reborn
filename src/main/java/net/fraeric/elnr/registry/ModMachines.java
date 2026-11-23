@@ -77,6 +77,23 @@ public final class ModMachines {
     public static final RegistryObject<Item> WIND_TURBINE_POLE_ITEM = ModItems.ITEMS.register("wind_turbine_pole",
             () -> new net.fraeric.elnr.common.item.TooltipBlockItem(WIND_TURBINE_POLE.get(), new Item.Properties(),
                     "tooltip.elnr.wind_turbine_pole.1", "tooltip.elnr.wind_turbine_pole.2"));
+    /** Solar panel building block: connected panel blocks work as one bigger panel; place them on SOLAR_PANEL_LEG. */
+    public static final RegistryObject<Block> SOLAR_PANEL = ModBlocks.BLOCKS.register("solar_panel",
+            () -> new SolarPanelBlock(metal(2.0F)));
+    public static final RegistryObject<Item> SOLAR_PANEL_ITEM = ModItems.ITEMS.register("solar_panel",
+            () -> new net.fraeric.elnr.common.item.TooltipBlockItem(SOLAR_PANEL.get(), new Item.Properties(),
+                    "tooltip.elnr.solar_panel.1", "tooltip.elnr.solar_panel.2"));
+
+    /** Stackable leg for the leg-less solar panels. */
+    public static final RegistryObject<Block> SOLAR_PANEL_LEG = ModBlocks.BLOCKS.register("solar_panel_leg",
+            () -> new SolarPanelLegBlock(metal(2.0F)));
+    public static final RegistryObject<Item> SOLAR_PANEL_LEG_ITEM = ModItems.ITEMS.register("solar_panel_leg",
+            () -> new net.minecraft.world.item.BlockItem(SOLAR_PANEL_LEG.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_BE =
+            ModBlockEntities.BLOCK_ENTITIES.register("solar_panel", () -> BlockEntityType.Builder.of(SolarPanelBlockEntity::new,
+                    SOLAR_PANEL.get()).build(null));
+
     public static final RegistryObject<Block> FE_CONVERTER = ModBlocks.BLOCKS.register("fe_converter",
             () -> new FeConverterBlock(metal(3.0F)));
     public static final RegistryObject<Item> FE_CONVERTER_ITEM = ModItems.ITEMS.register("fe_converter",

@@ -1,22 +1,40 @@
 {
- "variants": {
-  "lit=false,part=lower": {
-   "model": "elnr:block/chandelier"
-  },
-  "lit=true,part=lower": {
-   "model": "elnr:block/chandelier_lit"
-  },
-  "lit=false,part=middle": {
-   "model": "elnr:block/chandelier"
-  },
-  "lit=true,part=middle": {
-   "model": "elnr:block/chandelier_lit"
-  },
-  "lit=false,part=head": {
-   "model": "elnr:block/chandelier"
-  },
-  "lit=true,part=head": {
-   "model": "elnr:block/chandelier_lit"
+  "variants": {
+    "lit=false,part=lower,bulb=false": {
+      "model": "elnr:block/chandelier"
+    },
+    "lit=false,part=lower,bulb=true": {
+      "model": "elnr:block/chandelier_bulb"
+    },
+    "lit=true,part=lower,bulb=false": {
+      "model": "elnr:block/chandelier_lit"
+    },
+    "lit=true,part=lower,bulb=true": {
+      "model": "elnr:block/chandelier_lit_bulb"
+    },
+    "lit=false,part=middle,bulb=false": {
+      "model": "elnr:block/chandelier"
+    },
+    "lit=false,part=middle,bulb=true": {
+      "model": "elnr:block/chandelier_bulb"
+    },
+    "lit=true,part=middle,bulb=false": {
+      "model": "elnr:block/chandelier_lit"
+    },
+    "lit=true,part=middle,bulb=true": {
+      "model": "elnr:block/chandelier_lit_bulb"
+    },
+    "lit=false,part=head,bulb=false": {
+      "model": "elnr:block/chandelier"
+    },
+    "lit=false,part=head,bulb=true": {
+      "model": "elnr:block/chandelier_bulb"
+    },
+    "lit=true,part=head,bulb=false": {
+      "model": "elnr:block/chandelier_lit"
+    },
+    "lit=true,part=head,bulb=true": {
+      "model": "elnr:block/chandelier_lit_bulb"
+    }
   }
- }
 }

@@ -1,0 +1,16 @@
+{
+ "variants": {
+  "base=false,cap=false": {
+   "model": "elnr:block/solar_panel_leg_00"
+  },
+  "base=false,cap=true": {
+   "model": "elnr:block/solar_panel_leg_01"
+  },
+  "base=true,cap=false": {
+   "model": "elnr:block/solar_panel_leg_10"
+  },
+  "base=true,cap=true": {
+   "model": "elnr:block/solar_panel_leg_11"
+  }
+ }
+}

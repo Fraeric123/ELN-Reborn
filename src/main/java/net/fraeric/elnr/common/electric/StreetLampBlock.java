@@ -61,6 +61,8 @@ public class StreetLampBlock extends Block implements EntityBlock {
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     /** Only meaningful on the head: the lamp is burning. */
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
+    /** Only meaningful on the head (the base of wall lamps / chandeliers): a bulb is inserted, so the model shows it. */
+    public static final BooleanProperty BULB = BooleanProperty.create("bulb");
 
     private static final VoxelShape LOWER_SHAPE = Shapes.or(
             part(4, 0, 4, 12, 2, 12), part(5, 2, 5, 11, 4, 11),
@@ -78,7 +80,8 @@ public class StreetLampBlock extends Block implements EntityBlock {
         super(properties);
         registerDefaultState(stateDefinition.any()
                 .setValue(PART, Part.LOWER)
-                .setValue(LIT, Boolean.FALSE));
+                .setValue(LIT, Boolean.FALSE)
+                .setValue(BULB, Boolean.FALSE));
     }
 
     private static VoxelShape part(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -95,7 +98,7 @@ public class StreetLampBlock extends Block implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(PART, LIT);
+        builder.add(PART, LIT, BULB);
     }
 
     // ------------------------------------------------------------------
@@ -125,6 +128,24 @@ public class StreetLampBlock extends Block implements EntityBlock {
                 && head.getValue(PART) == Part.HEAD
                 && head.getValue(LIT) != lit) {
             level.setBlock(headPos, head.setValue(LIT, lit), Block.UPDATE_ALL);
+        }
+    }
+
+    /** Mirrors "a bulb is inserted" to the visible part of the lamp (the head, or the base of wall lamps / chandeliers). */
+    public static void setHeadBulb(Level level, BlockPos basePos, boolean bulb) {
+        BlockState baseState = level.getBlockState(basePos);
+        if (baseState.getBlock() instanceof WallStreetLampBlock || baseState.getBlock() instanceof ChandelierBlock) {
+            if (baseState.getValue(BULB) != bulb) {
+                level.setBlock(basePos, baseState.setValue(BULB, bulb), Block.UPDATE_ALL);
+            }
+            return;
+        }
+        BlockPos headPos = basePos.above(2);
+        BlockState head = level.getBlockState(headPos);
+        if (head.getBlock() instanceof StreetLampBlock
+                && head.getValue(PART) == Part.HEAD
+                && head.getValue(BULB) != bulb) {
+            level.setBlock(headPos, head.setValue(BULB, bulb), Block.UPDATE_ALL);
         }
     }
 

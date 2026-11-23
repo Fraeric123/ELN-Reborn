@@ -117,6 +117,9 @@ public final class WindTurbineTower {
         if (b instanceof TubeLightBlock) {
             return TubeLightBlock.group(level, pos);
         }
+        if (b instanceof SolarPanelLegBlock || b instanceof SolarPanelBlock) {
+            return SolarPanelLegBlock.group(level, pos);
+        }
         if (!(b instanceof WindTurbinePoleBlock) && !(b instanceof WindTurbineBlock)) {
             return List.of(pos);
         }

@@ -122,62 +122,14 @@ public class SocketBlock extends Block implements EntityBlock {
         if (!(level.getBlockEntity(pos) instanceof SocketBlockEntity socket)) {
             return InteractionResult.PASS;
         }
-        ItemStack held = player.getItemInHand(hand);
-
-        // Plug the cable straight into the socket (no sneak, no side strips needed).
-        if (held.getItem() instanceof CableItem) {
-            if (socket.hasCable()) {
-                return InteractionResult.FAIL;
-            }
-            if (!level.isClientSide) {
-                socket.setCable(new ItemStack(held.getItem()));
-                if (!player.getAbilities().instabuild) {
-                    held.shrink(1);
-                }
-                ElectricNetwork.updateAt(level, pos);
-            }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        if (!level.isClientSide && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            net.minecraftforge.network.NetworkHooks.openScreen(serverPlayer,
+                    new net.minecraft.world.SimpleMenuProvider(
+                            (id, inventory, p) -> new SocketMenu(id, inventory, socket),
+                            net.minecraft.network.chat.Component.translatable(getDescriptionId())),
+                    pos);
         }
-
-        // Let the off-hand item (bulb) be used instead of emptying the socket.
-        if (held.isEmpty() && hand == InteractionHand.MAIN_HAND
-                && player.getOffhandItem().getItem() instanceof BulbItem && !socket.hasBulb()) {
-            return InteractionResult.PASS;
-        }
-
-        if (level.isClientSide) {
-            boolean relevant = held.isEmpty()
-                    ? socket.hasBulb() || socket.hasCable()
-                    : held.getItem() instanceof BulbItem && !socket.hasBulb();
-            return relevant ? InteractionResult.SUCCESS : InteractionResult.PASS;
-        }
-
-        if (held.isEmpty()) {
-            ItemStack removed = ItemStack.EMPTY;
-            if (socket.hasCable()) {
-                removed = socket.getCable().copy();
-                socket.setCable(ItemStack.EMPTY);
-            } else if (socket.hasBulb()) {
-                removed = socket.getBulb().copy();
-                socket.setBulb(ItemStack.EMPTY);
-            }
-            if (removed.isEmpty()) {
-                return InteractionResult.PASS;
-            }
-            if (!player.addItem(removed)) {
-                player.drop(removed, false);
-            }
-        } else if (held.getItem() instanceof BulbItem && !socket.hasBulb()) {
-            socket.setBulb(new ItemStack(held.getItem()));
-            if (!player.getAbilities().instabuild) {
-                held.shrink(1);
-            }
-        } else {
-            return InteractionResult.PASS;
-        }
-
-        ElectricNetwork.updateAt(level, pos);
-        return InteractionResult.CONSUME;
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Override

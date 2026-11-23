@@ -1,0 +1,27 @@
+{
+ "textures": {
+  "particle": "elnr:block/solar_steel",
+  "frame": "elnr:block/solar_frame",
+  "back": "elnr:block/solar_back",
+  "cells": "elnr:block/solar_cells"
+ },
+ "elements": [
+  {
+   "from": [
+    15,
+    2,
+    0
+   ],
+   "to": [
+    15,
+    2.6,
+    1
+   ],
+   "faces": {
+    "east": {
+     "texture": "#frame"
+    }
+   }
+  }
+ ]
+}

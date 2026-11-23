@@ -1,22 +1,40 @@
 {
   "variants": {
-    "lit=false,part=lower": {
+    "lit=false,part=lower,bulb=false": {
       "model": "elnr:block/street_lamp_lower"
     },
-    "lit=false,part=middle": {
+    "lit=false,part=lower,bulb=true": {
+      "model": "elnr:block/street_lamp_lower"
+    },
+    "lit=false,part=middle,bulb=false": {
       "model": "elnr:block/street_lamp_middle"
     },
-    "lit=false,part=head": {
+    "lit=false,part=middle,bulb=true": {
+      "model": "elnr:block/street_lamp_middle"
+    },
+    "lit=false,part=head,bulb=false": {
       "model": "elnr:block/street_lamp_head"
     },
-    "lit=true,part=lower": {
+    "lit=false,part=head,bulb=true": {
+      "model": "elnr:block/street_lamp_head_bulb"
+    },
+    "lit=true,part=lower,bulb=false": {
       "model": "elnr:block/street_lamp_lower"
     },
-    "lit=true,part=middle": {
+    "lit=true,part=lower,bulb=true": {
+      "model": "elnr:block/street_lamp_lower"
+    },
+    "lit=true,part=middle,bulb=false": {
       "model": "elnr:block/street_lamp_middle"
     },
-    "lit=true,part=head": {
+    "lit=true,part=middle,bulb=true": {
+      "model": "elnr:block/street_lamp_middle"
+    },
+    "lit=true,part=head,bulb=false": {
       "model": "elnr:block/street_lamp_head_lit"
+    },
+    "lit=true,part=head,bulb=true": {
+      "model": "elnr:block/street_lamp_head_lit_bulb"
     }
   }
 }
